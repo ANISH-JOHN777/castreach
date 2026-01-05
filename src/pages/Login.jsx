@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
+import { validateEmail } from '../utils/validation';
 import { Mic, Mail, Lock, AlertCircle } from 'lucide-react';
 import './Auth.css';
 
@@ -8,29 +10,47 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('guest');
-    const [error, setError] = useState('');
+    const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
 
     const { login } = useAuth();
     const navigate = useNavigate();
+    const toast = useToast();
+
+    const validateForm = () => {
+        const newErrors = {};
+
+        const emailError = validateEmail(email);
+        if (emailError) newErrors.email = emailError;
+
+        if (!password) {
+            newErrors.password = 'Password is required';
+        } else if (password.length < 6) {
+            newErrors.password = 'Password must be at least 6 characters';
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
+        setErrors({});
+
+        if (!validateForm()) {
+            toast.error('Please fix the errors in the form');
+            return;
+        }
+
         setLoading(true);
 
         try {
-            // Basic validation
-            if (!email || !password) {
-                throw new Error('Please fill in all fields');
-            }
+            // Mock login with delay to simulate API call
+            await new Promise(resolve => setTimeout(resolve, 800));
 
-            if (!email.includes('@')) {
-                throw new Error('Please enter a valid email');
-            }
-
-            // Mock login
             const user = login(email, password, role);
+
+            toast.success(`Welcome back, ${user.name}!`);
 
             // Navigate based on role
             switch (user.role) {
@@ -47,7 +67,7 @@ const Login = () => {
                     navigate('/');
             }
         } catch (err) {
-            setError(err.message);
+            toast.error(err.message || 'Failed to sign in. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -65,13 +85,6 @@ const Login = () => {
 
                     <h2 className="auth-title">Welcome Back</h2>
                     <p className="auth-subtitle">Sign in to continue to your account</p>
-
-                    {error && (
-                        <div className="auth-error">
-                            <AlertCircle size={16} />
-                            {error}
-                        </div>
-                    )}
 
                     <form onSubmit={handleSubmit} className="auth-form">
                         {/* Role Selection */}
@@ -118,13 +131,18 @@ const Login = () => {
                                 <Mail size={18} />
                                 <input
                                     type="email"
-                                    className="form-input"
+                                    className={`form-input ${errors.email ? 'error' : ''}`}
                                     placeholder="Enter your email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    required
                                 />
                             </div>
+                            {errors.email && (
+                                <span className="field-error">
+                                    <AlertCircle size={14} />
+                                    {errors.email}
+                                </span>
+                            )}
                         </div>
 
                         {/* Password */}
@@ -134,13 +152,18 @@ const Login = () => {
                                 <Lock size={18} />
                                 <input
                                     type="password"
-                                    className="form-input"
+                                    className={`form-input ${errors.password ? 'error' : ''}`}
                                     placeholder="Enter your password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    required
                                 />
                             </div>
+                            {errors.password && (
+                                <span className="field-error">
+                                    <AlertCircle size={14} />
+                                    {errors.password}
+                                </span>
+                            )}
                         </div>
 
                         {/* Forgot Password */}

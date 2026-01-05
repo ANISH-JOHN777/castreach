@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     padding: var(--spacing-2xl) var(--spacing-md);
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-color) 100%);
     position: relative;
     overflow: hidden;
 }
@@ -142,12 +142,12 @@
 
 .role-option:hover {
     border-color: var(--primary-color);
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: rgba(99, 102, 241, 0.05);
 }
 
 .role-option.active {
     border-color: var(--primary-color);
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.1));
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.15));
 }
 
 .role-option.active span {
@@ -171,6 +171,24 @@
 
 .input-with-icon .form-input {
     padding-left: calc(var(--spacing-md) * 2 + 18px);
+}
+
+.form-input.error {
+    border-color: var(--error-color);
+}
+
+.form-input.error:focus {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.field-error {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--error-color);
+    font-size: var(--font-size-xs);
+    margin-top: var(--spacing-xs);
 }
 
 /* Auth Links */

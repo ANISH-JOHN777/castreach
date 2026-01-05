@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ToastProvider } from './context/ToastContext';
 import AppLayout from './layouts/AppLayout';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -30,9 +31,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
         alignItems: 'center',
         minHeight: '100vh'
       }}>
-        <div className="skeleton" style={{ width: '200px', height: '40px' }}>
-          Loading...
-        </div>
+        <div className="spinner"></div>
       </div>
     );
   }
@@ -126,9 +125,11 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </ToastProvider>
     </BrowserRouter>
   );
 }

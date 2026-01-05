@@ -1,0 +1,45 @@
+.loading-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: var(--z-modal);
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.spinner-large {
+    border: 4px solid var(--bg-tertiary);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: rotate 1s linear infinite;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.loading-message {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-medium);
+}
+
+.loading-inline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-xl);
+}
+
+.loading-text {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+}
