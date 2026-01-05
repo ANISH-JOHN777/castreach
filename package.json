@@ -32,7 +32,13 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --fix",
+    "preview": "vite preview",
+    "clean": "rm -rf node_modules dist",
+    "reinstall": "npm run clean && npm install",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\"",
+    "check": "npm run lint && npm run build",
+    "serve": "vite preview --port 4173"
   },
   "dependencies": {
     "lucide-react": "^0.561.0",
