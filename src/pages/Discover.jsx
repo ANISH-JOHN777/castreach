@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { supabase, isSupabaseConfigured } from '../config/supabase';
 import SEO from '../components/SEO';
+import Loading from '../components/Loading';
 import { mockGuests, mockHosts } from '../mock-data/data';
 import { Search, Star, MapPin, DollarSign, Calendar, Filter, X } from 'lucide-react';
 import './Discover.css';
@@ -18,6 +20,51 @@ const Discover = () => {
         availability: 'all',
     });
     const [showFilters, setShowFilters] = useState(false);
+    const [guests, setGuests] = useState([]);
+    const [hosts, setHosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const usingSupabase = isSupabaseConfigured();
+
+    // Load profiles from Supabase
+    useEffect(() => {
+        loadProfiles();
+    }, []);
+
+    const loadProfiles = async () => {
+        if (!usingSupabase) {
+            // Use mock data
+            setGuests(mockGuests);
+            setHosts(mockHosts);
+            setLoading(false);
+            return;
+        }
+
+        try {
+            setLoading(true);
+
+            // Load all profiles
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+
+            // Separate by role
+            const guestProfiles = data.filter(p => p.role === 'guest');
+            const hostProfiles = data.filter(p => p.role === 'host');
+
+            setGuests(guestProfiles);
+            setHosts(hostProfiles);
+        } catch (error) {
+            console.error('Error loading profiles:', error);
+            // Fallback to mock data
+            setGuests(mockGuests);
+            setHosts(mockHosts);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleBookGuest = (guest) => {
         if (!isAuthenticated) {
@@ -48,29 +95,33 @@ const Discover = () => {
         });
     };
 
-    const filteredGuests = mockGuests.filter(guest => {
-        const matchesSearch = guest.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            guest.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            guest.expertise.some(e => e.toLowerCase().includes(searchQuery.toLowerCase()));
+    const filteredGuests = guests.filter(guest => {
+        const matchesSearch = guest.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            guest.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            guest.expertise?.some(e => e.toLowerCase().includes(searchQuery.toLowerCase()));
 
-        const matchesPrice = guest.price >= filters.priceRange[0] && guest.price <= filters.priceRange[1];
-        const matchesRating = guest.rating >= filters.minRating;
-        const matchesLocation = !filters.location || guest.location.toLowerCase().includes(filters.location.toLowerCase());
+        const matchesPrice = !guest.price || (guest.price >= filters.priceRange[0] && guest.price <= filters.priceRange[1]);
+        const matchesRating = !guest.rating || guest.rating >= filters.minRating;
+        const matchesLocation = !filters.location || guest.location?.toLowerCase().includes(filters.location.toLowerCase());
         const matchesAvailability = filters.availability === 'all' || guest.availability === filters.availability;
 
         return matchesSearch && matchesPrice && matchesRating && matchesLocation && matchesAvailability;
     });
 
-    const filteredHosts = mockHosts.filter(host => {
-        const matchesSearch = host.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            host.podcastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            host.category.toLowerCase().includes(searchQuery.toLowerCase());
+    const filteredHosts = hosts.filter(host => {
+        const matchesSearch = host.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            host.podcastName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            host.category?.toLowerCase().includes(searchQuery.toLowerCase());
 
-        const matchesRating = host.rating >= filters.minRating;
-        const matchesCategory = !filters.location || host.category.toLowerCase().includes(filters.location.toLowerCase());
+        const matchesRating = !host.rating || host.rating >= filters.minRating;
+        const matchesCategory = !filters.location || host.category?.toLowerCase().includes(filters.location.toLowerCase());
 
         return matchesSearch && matchesRating && matchesCategory;
     });
+
+    if (loading) {
+        return <Loading message="Loading profiles..." />;
+    }
 
     return (
         <div className="discover-page">
