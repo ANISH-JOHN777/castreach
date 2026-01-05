@@ -275,34 +275,38 @@ const Discover = () => {
                         {filteredGuests.map(guest => (
                             <div key={guest.id} className="profile-card">
                                 <div className="profile-header">
-                                    <img src={guest.avatar} alt={guest.name} className="profile-avatar" />
+                                    <img
+                                        src={guest.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(guest.name || 'User')}&background=6366f1&color=fff`}
+                                        alt={guest.name}
+                                        className="profile-avatar"
+                                    />
                                     <div className="profile-rating">
                                         <Star size={16} fill="currentColor" />
-                                        {guest.rating}
+                                        {guest.rating || 0}
                                     </div>
                                 </div>
-                                <h3 className="profile-name">{guest.name}</h3>
-                                <p className="profile-title">{guest.title}</p>
-                                <p className="profile-bio">{guest.bio}</p>
+                                <h3 className="profile-name">{guest.name || 'Anonymous'}</h3>
+                                <p className="profile-title">{guest.title || 'Podcast Guest'}</p>
+                                <p className="profile-bio">{guest.bio || 'No bio available'}</p>
                                 <div className="profile-expertise">
-                                    {guest.expertise.slice(0, 3).map((skill, index) => (
+                                    {(guest.expertise || ['General']).slice(0, 3).map((skill, index) => (
                                         <span key={index} className="expertise-tag">{skill}</span>
                                     ))}
                                 </div>
                                 <div className="profile-meta">
                                     <div className="meta-item">
                                         <MapPin size={14} />
-                                        {guest.location}
+                                        {guest.location || 'Remote'}
                                     </div>
                                     <div className="meta-item">
                                         <Calendar size={14} />
-                                        {guest.episodeCount} episodes
+                                        {guest.availability || 'Available'}
                                     </div>
                                 </div>
                                 <div className="profile-footer">
                                     <div className="profile-price">
                                         <DollarSign size={16} />
-                                        {guest.price}/episode
+                                        {guest.price || 0}/episode
                                     </div>
                                     <button className="btn btn-primary btn-sm" onClick={() => handleBookGuest(guest)}>Book Now</button>
                                 </div>
@@ -314,33 +318,37 @@ const Discover = () => {
                         {filteredHosts.map(host => (
                             <div key={host.id} className="profile-card">
                                 <div className="profile-header">
-                                    <img src={host.avatar} alt={host.name} className="profile-avatar" />
+                                    <img
+                                        src={host.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(host.name || 'User')}&background=6366f1&color=fff`}
+                                        alt={host.name}
+                                        className="profile-avatar"
+                                    />
                                     <div className="profile-rating">
                                         <Star size={16} fill="currentColor" />
-                                        {host.rating}
+                                        {host.rating || 0}
                                     </div>
                                 </div>
-                                <h3 className="profile-name">{host.name}</h3>
-                                <p className="profile-title">{host.podcastName}</p>
-                                <p className="profile-bio">{host.description}</p>
+                                <h3 className="profile-name">{host.name || 'Anonymous'}</h3>
+                                <p className="profile-title">{host.title || 'Podcast Host'}</p>
+                                <p className="profile-bio">{host.bio || 'No bio available'}</p>
                                 <div className="profile-expertise">
-                                    <span className="expertise-tag">{host.category}</span>
-                                    <span className="expertise-tag">{host.recordingFormat}</span>
+                                    {(host.expertise || ['General']).slice(0, 3).map((skill, index) => (
+                                        <span key={index} className="expertise-tag">{skill}</span>
+                                    ))}
                                 </div>
                                 <div className="profile-meta">
                                     <div className="meta-item">
-                                        <Calendar size={14} />
-                                        {host.episodeCount} episodes
+                                        <MapPin size={14} />
+                                        {host.location || 'Remote'}
                                     </div>
                                     <div className="meta-item">
-                                        {host.subscribers.toLocaleString()} subscribers
+                                        <Calendar size={14} />
+                                        {host.availability || 'Available'}
                                     </div>
                                 </div>
                                 <div className="profile-footer">
-                                    <div className="profile-platforms">
-                                        {host.platforms.slice(0, 2).map((platform, index) => (
-                                            <span key={index} className="platform-badge">{platform}</span>
-                                        ))}
+                                    <div className="profile-price">
+                                        Looking for guests
                                     </div>
                                     <button className="btn btn-primary btn-sm" onClick={() => handleApplyToHost(host)}>Apply</button>
                                 </div>
