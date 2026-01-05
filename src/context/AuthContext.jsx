@@ -133,11 +133,43 @@ export const AuthProvider = ({ children }) => {
         if (error) throw error;
 
         if (data.user) {
-          // Profile is created automatically by database trigger
-          await loadUserProfile(data.user.id);
+          // Wait a moment for the trigger to create the profile
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          // Load the profile
+          const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', data.user.id)
+            .single();
+
+          if (profileError) {
+            console.error('Profile load error:', profileError);
+            // Profile might not exist yet, create it manually
+            const { data: newProfile, error: createError } = await supabase
+              .from('profiles')
+              .insert({
+                id: data.user.id,
+                email: data.user.email,
+                name,
+                role,
+              })
+              .select()
+              .single();
+
+            if (createError) throw createError;
+
+            setUser(newProfile);
+            setIsAuthenticated(true);
+            return newProfile;
+          }
+
+          setUser(profile);
+          setIsAuthenticated(true);
+          return profile;
         }
 
-        return user;
+        throw new Error('Signup failed - no user returned');
       } catch (error) {
         console.error('Signup error:', error);
         throw new Error(error.message || 'Failed to sign up');
