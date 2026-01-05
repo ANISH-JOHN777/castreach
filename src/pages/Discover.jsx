@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { mockGuests, mockHosts } from '../mock-data/data';
-import { Search, Star, MapPin, DollarSign, Calendar } from 'lucide-react';
+import { Search, Star, MapPin, DollarSign, Calendar, Filter, X } from 'lucide-react';
 import './Discover.css';
 
 const Discover = () => {
@@ -10,13 +10,19 @@ const Discover = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState(user?.role === 'host' ? 'guests' : 'hosts');
     const [searchQuery, setSearchQuery] = useState('');
+    const [filters, setFilters] = useState({
+        priceRange: [0, 1000],
+        minRating: 0,
+        location: '',
+        availability: 'all',
+    });
+    const [showFilters, setShowFilters] = useState(false);
 
     const handleBookGuest = (guest) => {
         if (!isAuthenticated) {
             navigate('/login');
             return;
         }
-        // Navigate to bookings page with guest info
         navigate('/bookings', { state: { type: 'guest', profile: guest } });
     };
 
@@ -25,21 +31,45 @@ const Discover = () => {
             navigate('/login');
             return;
         }
-        // Navigate to bookings page with host info
         navigate('/bookings', { state: { type: 'host', profile: host } });
     };
 
-    const filteredGuests = mockGuests.filter(guest =>
-        guest.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        guest.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        guest.expertise.some(e => e.toLowerCase().includes(searchQuery.toLowerCase()))
-    );
+    const handleFilterChange = (key, value) => {
+        setFilters(prev => ({ ...prev, [key]: value }));
+    };
 
-    const filteredHosts = mockHosts.filter(host =>
-        host.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        host.podcastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        host.category.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const resetFilters = () => {
+        setFilters({
+            priceRange: [0, 1000],
+            minRating: 0,
+            location: '',
+            availability: 'all',
+        });
+    };
+
+    const filteredGuests = mockGuests.filter(guest => {
+        const matchesSearch = guest.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            guest.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            guest.expertise.some(e => e.toLowerCase().includes(searchQuery.toLowerCase()));
+
+        const matchesPrice = guest.price >= filters.priceRange[0] && guest.price <= filters.priceRange[1];
+        const matchesRating = guest.rating >= filters.minRating;
+        const matchesLocation = !filters.location || guest.location.toLowerCase().includes(filters.location.toLowerCase());
+        const matchesAvailability = filters.availability === 'all' || guest.availability === filters.availability;
+
+        return matchesSearch && matchesPrice && matchesRating && matchesLocation && matchesAvailability;
+    });
+
+    const filteredHosts = mockHosts.filter(host => {
+        const matchesSearch = host.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            host.podcastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            host.category.toLowerCase().includes(searchQuery.toLowerCase());
+
+        const matchesRating = host.rating >= filters.minRating;
+        const matchesCategory = !filters.location || host.category.toLowerCase().includes(filters.location.toLowerCase());
+
+        return matchesSearch && matchesRating && matchesCategory;
+    });
 
     return (
         <div className="discover-page">
@@ -63,7 +93,106 @@ const Discover = () => {
                             className="search-input"
                         />
                     </div>
+                    <button
+                        className="filter-toggle btn btn-secondary"
+                        onClick={() => setShowFilters(!showFilters)}
+                    >
+                        <Filter size={20} />
+                        Filters
+                    </button>
                 </div>
+
+                {/* Advanced Filters */}
+                {showFilters && (
+                    <div className="filters-panel">
+                        <div className="filters-header">
+                            <h3>Advanced Filters</h3>
+                            <button onClick={() => setShowFilters(false)} className="close-filters">
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <div className="filters-grid">
+                            {activeTab === 'guests' && (
+                                <>
+                                    <div className="filter-group">
+                                        <label className="filter-label">
+                                            Price Range: ${filters.priceRange[0]} - ${filters.priceRange[1]}
+                                        </label>
+                                        <div className="price-inputs">
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                max="1000"
+                                                value={filters.priceRange[0]}
+                                                onChange={(e) => handleFilterChange('priceRange', [Number(e.target.value), filters.priceRange[1]])}
+                                                className="form-input"
+                                                placeholder="Min"
+                                            />
+                                            <span>to</span>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                max="1000"
+                                                value={filters.priceRange[1]}
+                                                onChange={(e) => handleFilterChange('priceRange', [filters.priceRange[0], Number(e.target.value)])}
+                                                className="form-input"
+                                                placeholder="Max"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="filter-group">
+                                        <label className="filter-label">Availability</label>
+                                        <select
+                                            value={filters.availability}
+                                            onChange={(e) => handleFilterChange('availability', e.target.value)}
+                                            className="form-select"
+                                        >
+                                            <option value="all">All</option>
+                                            <option value="Available">Available</option>
+                                            <option value="Limited">Limited</option>
+                                        </select>
+                                    </div>
+                                </>
+                            )}
+                            <div className="filter-group">
+                                <label className="filter-label">Minimum Rating: {filters.minRating || 'Any'}</label>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="5"
+                                    step="0.5"
+                                    value={filters.minRating}
+                                    onChange={(e) => handleFilterChange('minRating', Number(e.target.value))}
+                                    className="rating-slider"
+                                />
+                                <div className="rating-labels">
+                                    <span>Any</span>
+                                    <span>5★</span>
+                                </div>
+                            </div>
+                            <div className="filter-group">
+                                <label className="filter-label">
+                                    {activeTab === 'guests' ? 'Location' : 'Category'}
+                                </label>
+                                <input
+                                    type="text"
+                                    value={filters.location}
+                                    onChange={(e) => handleFilterChange('location', e.target.value)}
+                                    className="form-input"
+                                    placeholder={activeTab === 'guests' ? 'Enter location...' : 'Enter category...'}
+                                />
+                            </div>
+                        </div>
+                        <div className="filters-actions">
+                            <button onClick={resetFilters} className="btn btn-secondary">
+                                Reset Filters
+                            </button>
+                            <button onClick={() => setShowFilters(false)} className="btn btn-primary">
+                                Apply Filters
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 {/* Tabs */}
                 <div className="tabs">

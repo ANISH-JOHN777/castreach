@@ -14,6 +14,7 @@ import Discover from './pages/Discover';
 import Profile from './pages/Profile';
 import Bookings from './pages/Bookings';
 import Messages from './pages/Messages';
+import About from './pages/About';
 
 import './styles/global.css';
 
@@ -56,6 +57,7 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/discover" element={<Discover />} />
+        <Route path="/about" element={<About />} />
 
         {/* Protected Routes - Guest */}
         <Route
