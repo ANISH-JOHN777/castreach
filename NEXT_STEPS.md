@@ -24,8 +24,8 @@
 
 1. In Supabase dashboard → **Settings** → **API**
 2. Copy:
-   - **Project URL** (e.g., `https://xxxxx.supabase.co`)
-   - **anon public key** (long string starting with `eyJ...`)
+   - **Project URL** (e.g., `nzvxysiyllsinpscbkxw`)
+   - **anon public key** (long string starting with `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56dnh5c2l5bGxzaW5wc2Nia3h3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1OTY4NTIsImV4cCI6MjA4MzE3Mjg1Mn0.dmxDTNYDJRWQKjxd5WxNZuUwnf5YavMCJcSF-yG13Mo`)
 
 ### Step 3: Configure Environment (2 minutes)
 

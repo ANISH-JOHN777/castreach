@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
+import { validateEmail } from '../utils/validation';
 import { Mic, Mail, Lock, User, AlertCircle } from 'lucide-react';
 import './Auth.css';
 
@@ -13,40 +15,61 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [role, setRole] = useState(initialRole);
-    const [error, setError] = useState('');
+    const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
 
     const { signup } = useAuth();
     const navigate = useNavigate();
+    const toast = useToast();
+
+    const validateForm = () => {
+        const newErrors = {};
+
+        if (!name || name.length < 2) {
+            newErrors.name = 'Name must be at least 2 characters';
+        }
+
+        const emailError = validateEmail(email);
+        if (emailError) newErrors.email = emailError;
+
+        if (!password) {
+            newErrors.password = 'Password is required';
+        } else if (password.length < 6) {
+            newErrors.password = 'Password must be at least 6 characters';
+        }
+
+        if (!confirmPassword) {
+            newErrors.confirmPassword = 'Please confirm your password';
+        } else if (password !== confirmPassword) {
+            newErrors.confirmPassword = 'Passwords do not match';
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
+        setErrors({});
+
+        if (!validateForm()) {
+            toast.error('Please fix the errors in the form');
+            return;
+        }
+
         setLoading(true);
 
         try {
-            // Validation
-            if (!name || !email || !password || !confirmPassword) {
-                throw new Error('Please fill in all fields');
-            }
+            // Await the signup
+            const user = await signup(email, password, role, name);
 
-            if (!email.includes('@')) {
-                throw new Error('Please enter a valid email');
-            }
+            toast.success(`Welcome to CastReach, ${name}!`);
 
-            if (password.length < 6) {
-                throw new Error('Password must be at least 6 characters');
-            }
-
-            if (password !== confirmPassword) {
-                throw new Error('Passwords do not match');
-            }
-
-            // Mock signup
-            const user = signup(email, password, role, name);
+            // Small delay to show the toast
+            await new Promise(resolve => setTimeout(resolve, 500));
 
             // Navigate based on role
-            switch (user.role) {
+            switch (user.role || role) {
                 case 'host':
                     navigate('/host/dashboard');
                     break;
@@ -60,7 +83,8 @@ const Signup = () => {
                     navigate('/');
             }
         } catch (err) {
-            setError(err.message);
+            console.error('Signup error:', err);
+            toast.error(err.message || 'Failed to create account. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -78,13 +102,6 @@ const Signup = () => {
 
                     <h2 className="auth-title">Create Account</h2>
                     <p className="auth-subtitle">Join the podcasting community</p>
-
-                    {error && (
-                        <div className="auth-error">
-                            <AlertCircle size={16} />
-                            {error}
-                        </div>
-                    )}
 
                     <form onSubmit={handleSubmit} className="auth-form">
                         {/* Role Selection */}
@@ -131,13 +148,18 @@ const Signup = () => {
                                 <User size={18} />
                                 <input
                                     type="text"
-                                    className="form-input"
+                                    className={`form-input ${errors.name ? 'error' : ''}`}
                                     placeholder="Enter your full name"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    required
                                 />
                             </div>
+                            {errors.name && (
+                                <span className="field-error">
+                                    <AlertCircle size={14} />
+                                    {errors.name}
+                                </span>
+                            )}
                         </div>
 
                         {/* Email */}
@@ -147,13 +169,18 @@ const Signup = () => {
                                 <Mail size={18} />
                                 <input
                                     type="email"
-                                    className="form-input"
+                                    className={`form-input ${errors.email ? 'error' : ''}`}
                                     placeholder="Enter your email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    required
                                 />
                             </div>
+                            {errors.email && (
+                                <span className="field-error">
+                                    <AlertCircle size={14} />
+                                    {errors.email}
+                                </span>
+                            )}
                         </div>
 
                         {/* Password */}
@@ -163,13 +190,18 @@ const Signup = () => {
                                 <Lock size={18} />
                                 <input
                                     type="password"
-                                    className="form-input"
+                                    className={`form-input ${errors.password ? 'error' : ''}`}
                                     placeholder="Create a password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    required
                                 />
                             </div>
+                            {errors.password && (
+                                <span className="field-error">
+                                    <AlertCircle size={14} />
+                                    {errors.password}
+                                </span>
+                            )}
                         </div>
 
                         {/* Confirm Password */}
@@ -179,13 +211,18 @@ const Signup = () => {
                                 <Lock size={18} />
                                 <input
                                     type="password"
-                                    className="form-input"
+                                    className={`form-input ${errors.confirmPassword ? 'error' : ''}`}
                                     placeholder="Confirm your password"
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
-                                    required
                                 />
                             </div>
+                            {errors.confirmPassword && (
+                                <span className="field-error">
+                                    <AlertCircle size={14} />
+                                    {errors.confirmPassword}
+                                </span>
+                            )}
                         </div>
 
                         {/* Submit Button */}
