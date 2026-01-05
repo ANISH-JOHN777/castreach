@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import SEO from '../components/SEO';
 import {
     Mic,
     Users,
@@ -49,6 +50,11 @@ const Home = () => {
 
     return (
         <div className="home-page">
+            <SEO
+                title="CastReach - Connect. Record. Grow."
+                description="The ultimate platform connecting podcast hosts, guests, and organizers. Discover talent, book appearances, and create amazing content together."
+                keywords="podcast, podcasting, podcast guests, podcast hosts, podcast booking, podcast collaboration, audio content, podcast platform"
+            />
             {/* Hero Section */}
             <section className="hero">
                 <div className="container">

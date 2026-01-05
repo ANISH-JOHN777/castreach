@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import SEO from '../components/SEO';
 import { mockGuests, mockHosts } from '../mock-data/data';
 import { Search, Star, MapPin, DollarSign, Calendar, Filter, X } from 'lucide-react';
 import './Discover.css';
@@ -73,6 +74,13 @@ const Discover = () => {
 
     return (
         <div className="discover-page">
+            <SEO
+                title={`Discover ${activeTab === 'guests' ? 'Podcast Guests' : 'Podcast Hosts'} - CastReach`}
+                description={activeTab === 'guests'
+                    ? 'Find expert podcast guests for your show. Browse verified professionals, thought leaders, and industry experts ready to share their insights.'
+                    : 'Discover podcast hosts looking for guests. Connect with engaging shows across all categories and grow your audience.'}
+                keywords={`podcast ${activeTab}, find podcast ${activeTab}, book podcast ${activeTab}, ${activeTab === 'guests' ? 'expert guests' : 'podcast shows'}`}
+            />
             <div className="container">
                 <div className="discover-header">
                     <h1 className="discover-title">Discover</h1>

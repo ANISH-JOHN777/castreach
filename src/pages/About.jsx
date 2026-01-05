@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 import {
     Mic,
     Users,
@@ -67,6 +68,11 @@ const About = () => {
 
     return (
         <div className="about-page">
+            <SEO
+                title="About Us - CastReach"
+                description="Learn about CastReach's mission to empower podcasters worldwide. Discover our values, meet our team, and join our growing community of podcast hosts, guests, and organizers."
+                keywords="about castreach, podcast platform, podcast community, podcast mission, podcast team"
+            />
             {/* Hero Section */}
             <section className="about-hero">
                 <div className="container">
