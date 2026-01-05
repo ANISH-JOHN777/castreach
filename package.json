@@ -1,8 +1,33 @@
 {
   "name": "castreach",
+  "version": "0.3.0",
+  "description": "The ultimate platform connecting podcast hosts, guests, and organizers. Discover talent, book appearances, and create amazing content together.",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "author": {
+    "name": "Anish John",
+    "url": "https://github.com/ANISH-JOHN777"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ANISH-JOHN777/castreach.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ANISH-JOHN777/castreach/issues"
+  },
+  "homepage": "https://github.com/ANISH-JOHN777/castreach#readme",
+  "keywords": [
+    "podcast",
+    "podcasting",
+    "podcast-platform",
+    "podcast-guests",
+    "podcast-hosts",
+    "podcast-booking",
+    "audio-content",
+    "content-creation",
+    "react",
+    "vite"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -25,5 +50,9 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "vite": "^7.2.4"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }
