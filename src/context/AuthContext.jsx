@@ -126,6 +126,11 @@ export const AuthProvider = ({ children }) => {
             data: {
               name,
               role,
+              bio: 'New to CastReach',
+              title: role === 'guest' ? 'Podcast Guest' : role === 'host' ? 'Podcast Host' : 'Podcast Organizer',
+              location: 'Remote',
+              expertise: ['General'],
+              price: 0,
             }
           }
         });
@@ -133,8 +138,8 @@ export const AuthProvider = ({ children }) => {
         if (error) throw error;
 
         if (data.user) {
-          // Wait a moment for the trigger to create the profile
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          // Wait for trigger to create profile
+          await new Promise(resolve => setTimeout(resolve, 1500));
 
           // Load the profile
           const { data: profile, error: profileError } = await supabase
@@ -145,7 +150,7 @@ export const AuthProvider = ({ children }) => {
 
           if (profileError) {
             console.error('Profile load error:', profileError);
-            // Profile might not exist yet, create it manually
+            // Create profile manually with complete data
             const { data: newProfile, error: createError } = await supabase
               .from('profiles')
               .insert({
@@ -153,6 +158,15 @@ export const AuthProvider = ({ children }) => {
                 email: data.user.email,
                 name,
                 role,
+                bio: 'New to CastReach',
+                title: role === 'guest' ? 'Podcast Guest' : role === 'host' ? 'Podcast Host' : 'Podcast Organizer',
+                location: 'Remote',
+                expertise: ['General'],
+                avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6366f1&color=fff`,
+                price: 0,
+                rating: 0,
+                total_reviews: 0,
+                availability: 'Available',
               })
               .select()
               .single();

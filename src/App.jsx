@@ -13,6 +13,7 @@ import HostDashboard from './pages/HostDashboard';
 import OrganizerDashboard from './pages/OrganizerDashboard';
 import Discover from './pages/Discover';
 import Profile from './pages/Profile';
+import ProfileEdit from './pages/ProfileEdit';
 import Bookings from './pages/Bookings';
 import Messages from './pages/Messages';
 import About from './pages/About';
@@ -94,6 +95,14 @@ function AppRoutes() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile/edit"
+          element={
+            <ProtectedRoute>
+              <ProfileEdit />
             </ProtectedRoute>
           }
         />
