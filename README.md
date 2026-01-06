@@ -1,6 +1,6 @@
 # 🎙️ CastReach - Podcast Collaboration Platform
 
-**CastReach** is a modern web platform connecting podcast hosts, guests, and organizers to create amazing content together. Built with React, Vite, and a focus on user experience.
+**CastReach** is a modern web platform connecting podcast hosts and guests to create amazing content together. Built with React, Vite, and a focus on user experience.
 
 ![CastReach Banner](https://via.placeholder.com/1200x400/6366f1/ffffff?text=CastReach+-+Connect.+Record.+Grow.)
 
@@ -24,7 +24,7 @@
 ### 👥 **Role-Based Dashboards**
 - **Guests**: Manage appearances, track earnings, build reputation
 - **Hosts**: Find talent, schedule recordings, manage shows
-- **Organizers**: Oversee multiple podcasts, coordinate teams
+- **Flexible Role Switching**: Change between Guest and Host roles anytime in your profile
 
 ### ⭐ **Reviews & Ratings**
 - Authentic feedback system
@@ -73,6 +73,7 @@ castreach/
 │   ├── components/       # Reusable UI components
 │   │   ├── Header.jsx
 │   │   ├── Footer.jsx
+│   │   ├── SEO.jsx
 │   │   ├── ErrorBoundary.jsx
 │   │   └── ScrollToTop.jsx
 │   ├── pages/           # Page components
@@ -82,13 +83,14 @@ castreach/
 │   │   ├── Login.jsx
 │   │   ├── Signup.jsx
 │   │   ├── Profile.jsx
+│   │   ├── ProfileEdit.jsx
 │   │   ├── Bookings.jsx
 │   │   ├── Messages.jsx
 │   │   ├── GuestDashboard.jsx
-│   │   ├── HostDashboard.jsx
-│   │   └── OrganizerDashboard.jsx
+│   │   └── HostDashboard.jsx
 │   ├── context/         # React Context providers
-│   │   └── AuthContext.jsx
+│   │   ├── AuthContext.jsx
+│   │   └── ToastContext.jsx
 │   ├── layouts/         # Layout components
 │   │   └── AppLayout.jsx
 │   ├── mock-data/       # Mock data for development
@@ -97,7 +99,10 @@ castreach/
 │   │   ├── global.css
 │   │   └── variables.css
 │   ├── utils/           # Utility functions
-│   │   └── validation.js
+│   │   ├── validation.js
+│   │   └── constants.js
+│   ├── config/          # Configuration files
+│   │   └── supabase.js
 │   ├── App.jsx          # Main app component
 │   ├── main.jsx         # App entry point
 │   └── index.css        # Base styles
@@ -119,16 +124,29 @@ CastReach uses a modern, vibrant design system with:
 - **Spacing**: Consistent 8px-based spacing scale
 - **Components**: Reusable, accessible UI components
 
-## 🔐 Authentication
+## 🔐 Authentication & Role Management
 
-Currently using mock authentication for development. Features include:
+### User Registration
+- All new users are registered as **Guest** by default
+- No role selection required during signup
+- Simple, streamlined onboarding process
 
+### Role Switching
+Users can change their role anytime through their profile:
+1. Navigate to Profile Edit (`/profile/edit`)
+2. Select desired role (Guest or Host)
+3. Save changes
+4. Role updates immediately across the entire app
+
+### Current Implementation
+- Mock authentication for development
 - Email/password login
-- Role-based access control (Guest, Host, Organizer)
+- Role-based access control (Guest, Host)
 - Protected routes
 - Persistent sessions (localStorage)
+- Supabase integration ready (optional)
 
-**Note**: Production implementation will require a proper backend with secure authentication.
+**Note**: Production implementation supports both mock mode and Supabase backend.
 
 ## 🛠️ Technologies
 

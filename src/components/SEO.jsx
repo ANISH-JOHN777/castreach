@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 const SEO = ({
     title = 'CastReach - Connect. Record. Grow.',
-    description = 'The ultimate platform connecting podcast hosts, guests, and organizers. Discover talent, book appearances, and create amazing content together.',
+    description = 'The ultimate platform connecting podcast hosts and guests. Discover talent, book appearances, and create amazing content together.',
     keywords = 'podcast, podcasting, podcast guests, podcast hosts, podcast booking, podcast platform, audio content',
     author = 'CastReach',
     ogImage = '/og-image.jpg',

@@ -11,7 +11,15 @@ import './Discover.css';
 const Discover = () => {
     const { user, isAuthenticated } = useAuth();
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState(user?.role === 'host' ? 'guests' : 'hosts');
+
+    // Determine initial tab based on user role
+    // Hosts look for guests, Guests look for hosts
+    const getInitialTab = () => {
+        if (!user?.role) return 'guests'; // Default for non-logged in users
+        return user.role === 'host' ? 'guests' : 'hosts';
+    };
+
+    const [activeTab, setActiveTab] = useState(getInitialTab());
     const [searchQuery, setSearchQuery] = useState('');
     const [filters, setFilters] = useState({
         priceRange: [0, 1000],
@@ -29,6 +37,16 @@ const Discover = () => {
     useEffect(() => {
         loadProfiles();
     }, []);
+
+    // Sync active tab with user role changes
+    useEffect(() => {
+        console.log('🔍 Discover: User role changed to:', user?.role);
+        if (user?.role) {
+            const newTab = user.role === 'host' ? 'guests' : 'hosts';
+            console.log('🔍 Discover: Switching tab to:', newTab);
+            setActiveTab(newTab);
+        }
+    }, [user?.role]);
 
     const loadProfiles = async () => {
         if (!usingSupabase) {

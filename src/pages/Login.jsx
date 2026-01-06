@@ -9,7 +9,6 @@ import './Auth.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('guest');
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
 
@@ -48,7 +47,7 @@ const Login = () => {
             // Mock login with delay to simulate API call
             await new Promise(resolve => setTimeout(resolve, 800));
 
-            const user = login(email, password, role);
+            const user = await login(email, password);
 
             toast.success(`Welcome back, ${user.name}!`);
 
@@ -59,9 +58,6 @@ const Login = () => {
                     break;
                 case 'guest':
                     navigate('/guest/dashboard');
-                    break;
-                case 'organizer':
-                    navigate('/organizer/dashboard');
                     break;
                 default:
                     navigate('/');
@@ -87,43 +83,6 @@ const Login = () => {
                     <p className="auth-subtitle">Sign in to continue to your account</p>
 
                     <form onSubmit={handleSubmit} className="auth-form">
-                        {/* Role Selection */}
-                        <div className="form-group">
-                            <label className="form-label">I am a</label>
-                            <div className="role-selector">
-                                <label className={`role-option ${role === 'guest' ? 'active' : ''}`}>
-                                    <input
-                                        type="radio"
-                                        name="role"
-                                        value="guest"
-                                        checked={role === 'guest'}
-                                        onChange={(e) => setRole(e.target.value)}
-                                    />
-                                    <span>Guest</span>
-                                </label>
-                                <label className={`role-option ${role === 'host' ? 'active' : ''}`}>
-                                    <input
-                                        type="radio"
-                                        name="role"
-                                        value="host"
-                                        checked={role === 'host'}
-                                        onChange={(e) => setRole(e.target.value)}
-                                    />
-                                    <span>Host</span>
-                                </label>
-                                <label className={`role-option ${role === 'organizer' ? 'active' : ''}`}>
-                                    <input
-                                        type="radio"
-                                        name="role"
-                                        value="organizer"
-                                        checked={role === 'organizer'}
-                                        onChange={(e) => setRole(e.target.value)}
-                                    />
-                                    <span>Organizer</span>
-                                </label>
-                            </div>
-                        </div>
-
                         {/* Email */}
                         <div className="form-group">
                             <label className="form-label">Email</label>

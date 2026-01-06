@@ -14,7 +14,6 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [role, setRole] = useState(initialRole);
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
 
@@ -60,8 +59,8 @@ const Signup = () => {
         setLoading(true);
 
         try {
-            // Await the signup
-            const user = await signup(email, password, role, name);
+            // Await the signup - all users default to 'guest' role
+            const user = await signup(email, password, 'guest', name);
 
             toast.success(`Welcome to CastReach, ${name}!`);
 
@@ -69,15 +68,12 @@ const Signup = () => {
             await new Promise(resolve => setTimeout(resolve, 500));
 
             // Navigate based on role
-            switch (user.role || role) {
+            switch (user.role) {
                 case 'host':
                     navigate('/host/dashboard');
                     break;
                 case 'guest':
                     navigate('/guest/dashboard');
-                    break;
-                case 'organizer':
-                    navigate('/organizer/dashboard');
                     break;
                 default:
                     navigate('/');
@@ -104,43 +100,6 @@ const Signup = () => {
                     <p className="auth-subtitle">Join the podcasting community</p>
 
                     <form onSubmit={handleSubmit} className="auth-form">
-                        {/* Role Selection */}
-                        <div className="form-group">
-                            <label className="form-label">I want to be a</label>
-                            <div className="role-selector">
-                                <label className={`role-option ${role === 'guest' ? 'active' : ''}`}>
-                                    <input
-                                        type="radio"
-                                        name="role"
-                                        value="guest"
-                                        checked={role === 'guest'}
-                                        onChange={(e) => setRole(e.target.value)}
-                                    />
-                                    <span>Guest</span>
-                                </label>
-                                <label className={`role-option ${role === 'host' ? 'active' : ''}`}>
-                                    <input
-                                        type="radio"
-                                        name="role"
-                                        value="host"
-                                        checked={role === 'host'}
-                                        onChange={(e) => setRole(e.target.value)}
-                                    />
-                                    <span>Host</span>
-                                </label>
-                                <label className={`role-option ${role === 'organizer' ? 'active' : ''}`}>
-                                    <input
-                                        type="radio"
-                                        name="role"
-                                        value="organizer"
-                                        checked={role === 'organizer'}
-                                        onChange={(e) => setRole(e.target.value)}
-                                    />
-                                    <span>Organizer</span>
-                                </label>
-                            </div>
-                        </div>
-
                         {/* Name */}
                         <div className="form-group">
                             <label className="form-label">Full Name</label>

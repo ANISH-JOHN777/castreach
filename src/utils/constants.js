@@ -9,7 +9,6 @@ export const APP_DESCRIPTION = 'Connect. Record. Grow.';
 export const USER_ROLES = {
     GUEST: 'guest',
     HOST: 'host',
-    ORGANIZER: 'organizer',
 };
 
 // Booking Status
@@ -127,7 +126,6 @@ export const ROUTES = {
     MESSAGES: '/messages',
     GUEST_DASHBOARD: '/guest/dashboard',
     HOST_DASHBOARD: '/host/dashboard',
-    ORGANIZER_DASHBOARD: '/organizer/dashboard',
 };
 
 // Local Storage Keys

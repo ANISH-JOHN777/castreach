@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = async (email, password, role) => {
+  const login = async (email, password) => {
     if (usingSupabase) {
       // Supabase login
       try {
@@ -99,15 +99,23 @@ export const AuthProvider = ({ children }) => {
         throw new Error(error.message || 'Failed to login');
       }
     } else {
-      // Mock login
-      const mockUser = {
-        id: Date.now(),
-        email,
-        role,
-        name: email.split('@')[0],
-        avatar: `https://ui-avatars.com/api/?name=${email.split('@')[0]}&background=6366f1&color=fff`,
-        created_at: new Date().toISOString(),
-      };
+      // Mock login - get existing user from localStorage or create with guest role
+      const storedUser = localStorage.getItem('castreach_user');
+      let mockUser;
+
+      if (storedUser) {
+        mockUser = JSON.parse(storedUser);
+      } else {
+        mockUser = {
+          id: Date.now(),
+          email,
+          role: 'guest', // Default to guest
+          name: email.split('@')[0],
+          avatar: `https://ui-avatars.com/api/?name=${email.split('@')[0]}&background=6366f1&color=fff`,
+          created_at: new Date().toISOString(),
+        };
+      }
+
       setUser(mockUser);
       setIsAuthenticated(true);
       localStorage.setItem('castreach_user', JSON.stringify(mockUser));
@@ -127,7 +135,7 @@ export const AuthProvider = ({ children }) => {
               name,
               role,
               bio: 'New to CastReach',
-              title: role === 'guest' ? 'Podcast Guest' : role === 'host' ? 'Podcast Host' : 'Podcast Organizer',
+              title: role === 'guest' ? 'Podcast Guest' : 'Podcast Host',
               location: 'Remote',
               expertise: ['General'],
               price: 0,
@@ -159,7 +167,7 @@ export const AuthProvider = ({ children }) => {
                 name,
                 role,
                 bio: 'New to CastReach',
-                title: role === 'guest' ? 'Podcast Guest' : role === 'host' ? 'Podcast Host' : 'Podcast Organizer',
+                title: role === 'guest' ? 'Podcast Guest' : 'Podcast Host',
                 location: 'Remote',
                 expertise: ['General'],
                 avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6366f1&color=fff`,
@@ -223,6 +231,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateProfile = async (updates) => {
+    console.log('📝 AuthContext: updateProfile called with:', updates);
+    console.log('📝 Current user:', user);
+    console.log('📝 Using Supabase:', usingSupabase);
+
     if (usingSupabase) {
       // Supabase update
       try {
@@ -235,17 +247,20 @@ export const AuthProvider = ({ children }) => {
 
         if (error) throw error;
 
+        console.log('✅ Supabase profile updated:', data);
         setUser(data);
         return data;
       } catch (error) {
-        console.error('Update profile error:', error);
+        console.error('❌ Update profile error:', error);
         throw new Error(error.message || 'Failed to update profile');
       }
     } else {
       // Mock update
       const updatedUser = { ...user, ...updates };
+      console.log('✅ Mock profile updated:', updatedUser);
       setUser(updatedUser);
       localStorage.setItem('castreach_user', JSON.stringify(updatedUser));
+      console.log('💾 Saved to localStorage');
       return updatedUser;
     }
   };

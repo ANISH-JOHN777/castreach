@@ -29,8 +29,6 @@ const Header = () => {
                 return '/host/dashboard';
             case 'guest':
                 return '/guest/dashboard';
-            case 'organizer':
-                return '/organizer/dashboard';
             default:
                 return '/';
         }

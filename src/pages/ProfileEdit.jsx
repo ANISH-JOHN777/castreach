@@ -18,6 +18,9 @@ const ProfileEdit = () => {
         expertise: [],
         price: 0,
         availability: 'Available',
+        website: '',
+        twitter: '',
+        linkedin: '',
     });
     const [newExpertise, setNewExpertise] = useState('');
 
@@ -32,6 +35,9 @@ const ProfileEdit = () => {
                 expertise: user.expertise || [],
                 price: user.price || 0,
                 availability: user.availability || 'Available',
+                website: user.website || '',
+                twitter: user.twitter || '',
+                linkedin: user.linkedin || '',
             });
         }
     }, [user]);
@@ -250,6 +256,53 @@ const ProfileEdit = () => {
                                     <option value="Limited">Limited Availability</option>
                                     <option value="Unavailable">Currently Unavailable</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        {/* Social Links */}
+                        <div className="form-section">
+                            <h2 className="section-title">Social Links</h2>
+
+                            <div className="form-group">
+                                <label className="form-label">
+                                    🌐 Website
+                                </label>
+                                <input
+                                    type="url"
+                                    name="website"
+                                    className="form-input"
+                                    placeholder="https://yourwebsite.com"
+                                    value={formData.website}
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">
+                                    🐦 Twitter / X
+                                </label>
+                                <input
+                                    type="text"
+                                    name="twitter"
+                                    className="form-input"
+                                    placeholder="@yourusername"
+                                    value={formData.twitter}
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">
+                                    💼 LinkedIn
+                                </label>
+                                <input
+                                    type="text"
+                                    name="linkedin"
+                                    className="form-input"
+                                    placeholder="linkedin.com/in/yourprofile"
+                                    value={formData.linkedin}
+                                    onChange={handleChange}
+                                />
                             </div>
                         </div>
 

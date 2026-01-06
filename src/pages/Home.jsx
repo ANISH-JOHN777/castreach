@@ -45,14 +45,14 @@ const Home = () => {
         'Professional recording workflow management',
         'Secure escrow payment system',
         'Comprehensive review and rating system',
-        'Dedicated support for organizers',
+        'Real-time messaging and collaboration tools',
     ];
 
     return (
         <div className="home-page">
             <SEO
                 title="CastReach - Connect. Record. Grow."
-                description="The ultimate platform connecting podcast hosts, guests, and organizers. Discover talent, book appearances, and create amazing content together."
+                description="The ultimate platform connecting podcast hosts and guests. Discover talent, book appearances, and create amazing content together."
                 keywords="podcast, podcasting, podcast guests, podcast hosts, podcast booking, podcast collaboration, audio content, podcast platform"
             />
             {/* Hero Section */}
@@ -64,7 +64,7 @@ const Home = () => {
                                 Connect. Record. <span className="gradient-text">Grow.</span>
                             </h1>
                             <p className="hero-description">
-                                CastReach is the ultimate platform connecting podcast hosts, guests, and organizers.
+                                CastReach is the ultimate platform connecting podcast hosts and guests.
                                 Discover talent, book appearances, and create amazing content together.
                             </p>
                             <div className="hero-actions">
@@ -101,9 +101,16 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="hero-image">
-                            <div className="hero-illustration">
-                                <Mic size={120} className="floating-icon" />
-                            </div>
+                            <img
+                                src="/hero-banner.png"
+                                alt="Professional podcast studio setup"
+                                style={{
+                                    width: '100%',
+                                    height: 'auto',
+                                    borderRadius: '16px',
+                                    boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
@@ -167,14 +174,11 @@ const Home = () => {
                             Join thousands of podcasters already using CastReach to create amazing content
                         </p>
                         <div className="cta-actions">
-                            <Link to="/signup?role=guest" className="btn btn-primary btn-lg">
-                                Join as Guest
+                            <Link to="/signup" className="btn btn-primary btn-lg">
+                                Join Now
                             </Link>
-                            <Link to="/signup?role=host" className="btn btn-secondary btn-lg">
-                                Join as Host
-                            </Link>
-                            <Link to="/signup?role=organizer" className="btn btn-outline btn-lg">
-                                Join as Organizer
+                            <Link to="/discover" className="btn btn-outline btn-lg">
+                                Explore Talent
                             </Link>
                         </div>
                     </div>

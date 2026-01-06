@@ -70,7 +70,7 @@ const About = () => {
         <div className="about-page">
             <SEO
                 title="About Us - CastReach"
-                description="Learn about CastReach's mission to empower podcasters worldwide. Discover our values, meet our team, and join our growing community of podcast hosts, guests, and organizers."
+                description="Learn about CastReach's mission to empower podcasters worldwide. Discover our values, meet our team, and join our growing community of podcast hosts and guests."
                 keywords="about castreach, podcast platform, podcast community, podcast mission, podcast team"
             />
             {/* Hero Section */}
@@ -82,7 +82,7 @@ const About = () => {
                         </h1>
                         <p className="about-hero-description">
                             CastReach is on a mission to make podcast collaboration seamless, accessible,
-                            and rewarding for hosts, guests, and organizers everywhere.
+                            and rewarding for hosts and guests everywhere.
                         </p>
                     </div>
                 </div>
@@ -91,21 +91,35 @@ const About = () => {
             {/* Mission Section */}
             <section className="about-mission">
                 <div className="container">
-                    <div className="mission-content">
-                        <div className="mission-icon">
-                            <Target size={64} />
+                    <div className="mission-content" style={{ display: 'flex', gap: '3rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                        <div style={{ flex: '1', minWidth: '300px' }}>
+                            <img
+                                src="/studio-setup.png"
+                                alt="Professional podcast studio"
+                                style={{
+                                    width: '100%',
+                                    height: 'auto',
+                                    borderRadius: '16px',
+                                    boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+                                }}
+                            />
                         </div>
-                        <h2 className="section-title">Our Mission</h2>
-                        <p className="mission-text">
-                            We're building the world's largest marketplace for podcast collaborations.
-                            Our platform connects talented guests with engaging hosts, making it easier
-                            than ever to create compelling content that resonates with audiences globally.
-                        </p>
-                        <p className="mission-text">
-                            Whether you're a seasoned podcast host looking for expert guests, a thought
-                            leader wanting to share your insights, or an organizer managing multiple shows,
-                            CastReach provides the tools and community you need to succeed.
-                        </p>
+                        <div style={{ flex: '1', minWidth: '300px' }}>
+                            <div className="mission-icon">
+                                <Target size={64} />
+                            </div>
+                            <h2 className="section-title">Our Mission</h2>
+                            <p className="mission-text">
+                                We're building the world's largest marketplace for podcast collaborations.
+                                Our platform connects talented guests with engaging hosts, making it easier
+                                than ever to create compelling content that resonates with audiences globally.
+                            </p>
+                            <p className="mission-text">
+                                Whether you're a seasoned podcast host looking for expert guests, or a thought
+                                leader wanting to share your insights,
+                                CastReach provides the tools and community you need to succeed.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>

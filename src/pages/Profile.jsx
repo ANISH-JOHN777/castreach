@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Camera, Mail, MapPin, Globe, Edit2, Save } from 'lucide-react';
 import './Profile.css';
@@ -13,12 +13,31 @@ const Profile = () => {
         location: 'San Francisco, CA',
         website: 'https://example.com',
         expertise: ['Technology', 'Business', 'Innovation'],
+        role: user?.role || 'guest',
     });
 
-    const handleSubmit = (e) => {
+    // Sync formData with user changes
+    useEffect(() => {
+        if (user) {
+            setFormData(prev => ({
+                ...prev,
+                name: user.name || prev.name,
+                email: user.email || prev.email,
+                role: user.role || 'guest',
+            }));
+        }
+    }, [user]);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        updateProfile(formData);
-        setIsEditing(false);
+        console.log('🔄 Submitting profile update with data:', formData);
+        try {
+            const result = await updateProfile(formData);
+            console.log('✅ Profile updated successfully:', result);
+            setIsEditing(false);
+        } catch (error) {
+            console.error('❌ Failed to update profile:', error);
+        }
     };
 
     return (
@@ -72,6 +91,37 @@ const Profile = () => {
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                         />
+                                    </div>
+
+                                    <div className="form-group">
+                                        <label className="form-label">Account Role</label>
+                                        <div className="role-selector">
+                                            <label className={`role-option ${formData.role === 'guest' ? 'active' : ''}`}>
+                                                <input
+                                                    type="radio"
+                                                    name="role"
+                                                    value="guest"
+                                                    checked={formData.role === 'guest'}
+                                                    onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                                                />
+                                                <span>Guest</span>
+                                            </label>
+                                            <label className={`role-option ${formData.role === 'host' ? 'active' : ''}`}>
+                                                <input
+                                                    type="radio"
+                                                    name="role"
+                                                    value="host"
+                                                    checked={formData.role === 'host'}
+                                                    onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                                                />
+                                                <span>Host</span>
+                                            </label>
+                                        </div>
+                                        <small className="form-hint">
+                                            {formData.role === 'guest'
+                                                ? 'As a guest, you can be discovered and booked for podcast appearances'
+                                                : 'As a host, you can discover and book guests for your podcast'}
+                                        </small>
                                     </div>
 
                                     <div className="form-group">

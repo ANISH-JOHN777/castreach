@@ -16,7 +16,7 @@ const Footer = () => {
                             <span>CastReach</span>
                         </Link>
                         <p className="footer-description">
-                            Connecting podcast hosts, guests, and organizers to create amazing content together.
+                            Connecting podcast hosts and guests to create amazing content together.
                         </p>
                         <div className="footer-social">
                             <a href="#" className="social-link" aria-label="Twitter">
@@ -49,9 +49,8 @@ const Footer = () => {
                     <div className="footer-section">
                         <h4 className="footer-title">For Users</h4>
                         <ul className="footer-links">
-                            <li><Link to="/signup?role=host">Become a Host</Link></li>
-                            <li><Link to="/signup?role=guest">Become a Guest</Link></li>
-                            <li><Link to="/signup?role=organizer">Become an Organizer</Link></li>
+                            <li><Link to="/signup">Join CastReach</Link></li>
+                            <li><Link to="/discover">Browse Talent</Link></li>
                             <li><Link to="/help">Help Center</Link></li>
                         </ul>
                     </div>

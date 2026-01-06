@@ -10,12 +10,13 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import GuestDashboard from './pages/GuestDashboard';
 import HostDashboard from './pages/HostDashboard';
-import OrganizerDashboard from './pages/OrganizerDashboard';
 import Discover from './pages/Discover';
 import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import Bookings from './pages/Bookings';
+import BookingRequest from './pages/BookingRequest';
 import Messages from './pages/Messages';
+import Personalization from './pages/Personalization';
 import About from './pages/About';
 
 import './styles/global.css';
@@ -79,12 +80,12 @@ function AppRoutes() {
           }
         />
 
-        {/* Protected Routes - Organizer */}
+        {/* Personalization/Onboarding */}
         <Route
-          path="/organizer/dashboard"
+          path="/personalization"
           element={
-            <ProtectedRoute allowedRoles={['organizer']}>
-              <OrganizerDashboard />
+            <ProtectedRoute>
+              <Personalization />
             </ProtectedRoute>
           }
         />
@@ -111,6 +112,14 @@ function AppRoutes() {
           element={
             <ProtectedRoute>
               <Bookings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/booking/request"
+          element={
+            <ProtectedRoute allowedRoles={['host']}>
+              <BookingRequest />
             </ProtectedRoute>
           }
         />
