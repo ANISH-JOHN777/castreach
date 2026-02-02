@@ -15,6 +15,7 @@ import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import Bookings from './pages/Bookings';
 import BookingRequest from './pages/BookingRequest';
+import PodcastRoom from './pages/PodcastRoom';
 import Messages from './pages/Messages';
 import Personalization from './pages/Personalization';
 import About from './pages/About';
@@ -128,6 +129,22 @@ function AppRoutes() {
           element={
             <ProtectedRoute>
               <Messages />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/room/:roomId"
+          element={
+            <ProtectedRoute>
+              <PodcastRoom />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/room"
+          element={
+            <ProtectedRoute>
+              <PodcastRoom />
             </ProtectedRoute>
           }
         />

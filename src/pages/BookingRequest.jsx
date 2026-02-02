@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
+import { supabase } from '../config/supabase';
 import { Calendar, Clock, MapPin, Video, Users, Send, X } from 'lucide-react';
 import './BookingRequest.css';
 
 const BookingRequest = () => {
-    const { user } = useAuth();
+    const { user, usingSupabase } = useAuth();
     const navigate = useNavigate();
     const toast = useToast();
     const [loading, setLoading] = useState(false);
@@ -35,29 +36,74 @@ const BookingRequest = () => {
         setLoading(true);
 
         try {
-            // TODO: Integrate with Supabase to create booking request
-            console.log('📅 Creating booking request:', formData);
+            if (usingSupabase) {
+                // Supabase booking creation
+                console.log('📅 Creating booking request in Supabase:', formData);
 
-            // Mock booking creation
-            const bookingRequest = {
-                id: Date.now().toString(),
-                hostId: user.id,
-                hostName: user.name,
-                ...formData,
-                status: 'pending',
-                createdAt: new Date().toISOString(),
-            };
+                // Try to find guest by name to get their ID
+                let guestId = null;
+                if (formData.guestName) {
+                    const { data: guestProfile } = await supabase
+                        .from('profiles')
+                        .select('id')
+                        .ilike('name', formData.guestName)
+                        .single();
 
-            // Save to localStorage for now (will be Supabase later)
-            const existingBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
-            existingBookings.push(bookingRequest);
-            localStorage.setItem('castreach_bookings', JSON.stringify(existingBookings));
+                    if (guestProfile) {
+                        guestId = guestProfile.id;
+                    }
+                }
 
-            toast?.success('Booking request sent successfully!');
-            navigate('/bookings');
+                const bookingData = {
+                    host_id: user.id,
+                    host_name: user.name,
+                    guest_id: guestId,
+                    guest_name: formData.guestName,
+                    podcast_title: formData.podcastTitle,
+                    episode_topic: formData.episodeTopic,
+                    description: formData.description,
+                    preferred_date: formData.preferredDate,
+                    preferred_time: formData.preferredTime,
+                    duration: parseInt(formData.duration),
+                    recording_type: formData.recordingType,
+                    location: formData.location || null,
+                    meeting_link: formData.meetingLink || null,
+                    notes: formData.notes || null,
+                    status: 'pending',
+                };
+
+                const { data, error } = await supabase
+                    .from('bookings')
+                    .insert(bookingData)
+                    .select()
+                    .single();
+
+                if (error) throw error;
+
+                console.log('✅ Booking created:', data);
+                toast?.success('Booking request sent successfully!');
+                navigate('/bookings');
+            } else {
+                // Mock booking creation (localStorage fallback)
+                const bookingRequest = {
+                    id: Date.now().toString(),
+                    hostId: user.id,
+                    hostName: user.name,
+                    ...formData,
+                    status: 'pending',
+                    createdAt: new Date().toISOString(),
+                };
+
+                const existingBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
+                existingBookings.push(bookingRequest);
+                localStorage.setItem('castreach_bookings', JSON.stringify(existingBookings));
+
+                toast?.success('Booking request sent successfully!');
+                navigate('/bookings');
+            }
         } catch (error) {
             console.error('Error creating booking:', error);
-            toast?.error('Failed to send booking request');
+            toast?.error(error.message || 'Failed to send booking request');
         } finally {
             setLoading(false);
         }

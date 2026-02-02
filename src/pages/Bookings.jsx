@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
+import { supabase } from '../config/supabase';
 import { Calendar, Clock, MapPin, Video, User, Check, X, Plus, Filter } from 'lucide-react';
 import './Bookings.css';
 
 const Bookings = () => {
-    const { user } = useAuth();
+    const { user, usingSupabase } = useAuth();
     const navigate = useNavigate();
     const toast = useToast();
     const [bookings, setBookings] = useState([]);
@@ -17,23 +18,39 @@ const Bookings = () => {
         loadBookings();
     }, [user]);
 
-    const loadBookings = () => {
+    const loadBookings = async () => {
         try {
-            const allBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
+            if (usingSupabase) {
+                // Load bookings from Supabase
+                const { data, error } = await supabase
+                    .from('bookings')
+                    .select('*')
+                    .or(`host_id.eq.${user.id},guest_id.eq.${user.id}`)
+                    .order('created_at', { ascending: false });
 
-            // Filter bookings based on user role
-            const userBookings = allBookings.filter(booking => {
-                if (user.role === 'host') {
-                    return booking.hostId === user.id;
-                } else {
-                    // For guests, show bookings where they are invited (by name for now)
-                    return booking.guestName.toLowerCase().includes(user.name.toLowerCase());
-                }
-            });
+                if (error) throw error;
 
-            setBookings(userBookings);
+                console.log('📚 Loaded bookings from Supabase:', data);
+                setBookings(data || []);
+            } else {
+                // Load from localStorage (fallback)
+                const allBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
+
+                // Filter bookings based on user role
+                const userBookings = allBookings.filter(booking => {
+                    if (user.role === 'host') {
+                        return booking.hostId === user.id;
+                    } else {
+                        // For guests, show bookings where they are invited (by name for now)
+                        return booking.guestName.toLowerCase().includes(user.name.toLowerCase());
+                    }
+                });
+
+                setBookings(userBookings);
+            }
         } catch (error) {
             console.error('Error loading bookings:', error);
+            toast?.error('Failed to load bookings');
         } finally {
             setLoading(false);
         }
@@ -41,13 +58,25 @@ const Bookings = () => {
 
     const handleAccept = async (bookingId) => {
         try {
-            const allBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
-            const updatedBookings = allBookings.map(booking =>
-                booking.id === bookingId
-                    ? { ...booking, status: 'accepted' }
-                    : booking
-            );
-            localStorage.setItem('castreach_bookings', JSON.stringify(updatedBookings));
+            if (usingSupabase) {
+                const { error } = await supabase
+                    .from('bookings')
+                    .update({ status: 'accepted' })
+                    .eq('id', bookingId);
+
+                if (error) throw error;
+
+                console.log('✅ Booking accepted in Supabase');
+            } else {
+                const allBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
+                const updatedBookings = allBookings.map(booking =>
+                    booking.id === bookingId
+                        ? { ...booking, status: 'accepted' }
+                        : booking
+                );
+                localStorage.setItem('castreach_bookings', JSON.stringify(updatedBookings));
+            }
+
             loadBookings();
             toast?.success('Booking request accepted!');
         } catch (error) {
@@ -58,13 +87,25 @@ const Bookings = () => {
 
     const handleDecline = async (bookingId) => {
         try {
-            const allBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
-            const updatedBookings = allBookings.map(booking =>
-                booking.id === bookingId
-                    ? { ...booking, status: 'declined' }
-                    : booking
-            );
-            localStorage.setItem('castreach_bookings', JSON.stringify(updatedBookings));
+            if (usingSupabase) {
+                const { error } = await supabase
+                    .from('bookings')
+                    .update({ status: 'declined' })
+                    .eq('id', bookingId);
+
+                if (error) throw error;
+
+                console.log('✅ Booking declined in Supabase');
+            } else {
+                const allBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
+                const updatedBookings = allBookings.map(booking =>
+                    booking.id === bookingId
+                        ? { ...booking, status: 'declined' }
+                        : booking
+                );
+                localStorage.setItem('castreach_bookings', JSON.stringify(updatedBookings));
+            }
+
             loadBookings();
             toast?.success('Booking request declined');
         } catch (error) {
@@ -77,19 +118,51 @@ const Bookings = () => {
         if (!confirm('Are you sure you want to cancel this booking?')) return;
 
         try {
-            const allBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
-            const updatedBookings = allBookings.map(booking =>
-                booking.id === bookingId
-                    ? { ...booking, status: 'cancelled' }
-                    : booking
-            );
-            localStorage.setItem('castreach_bookings', JSON.stringify(updatedBookings));
+            if (usingSupabase) {
+                const { error } = await supabase
+                    .from('bookings')
+                    .update({ status: 'cancelled' })
+                    .eq('id', bookingId);
+
+                if (error) throw error;
+
+                console.log('✅ Booking cancelled in Supabase');
+            } else {
+                const allBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
+                const updatedBookings = allBookings.map(booking =>
+                    booking.id === bookingId
+                        ? { ...booking, status: 'cancelled' }
+                        : booking
+                );
+                localStorage.setItem('castreach_bookings', JSON.stringify(updatedBookings));
+            }
+
             loadBookings();
             toast?.success('Booking cancelled');
         } catch (error) {
             console.error('Error cancelling booking:', error);
             toast?.error('Failed to cancel booking');
         }
+    };
+
+    // Normalize booking data to handle both Supabase (snake_case) and localStorage (camelCase)
+    const normalizeBooking = (booking) => {
+        return {
+            id: booking.id,
+            episodeTopic: booking.episode_topic || booking.episodeTopic,
+            podcastTitle: booking.podcast_title || booking.podcastTitle,
+            hostName: booking.host_name || booking.hostName,
+            guestName: booking.guest_name || booking.guestName,
+            description: booking.description,
+            preferredDate: booking.preferred_date || booking.preferredDate,
+            preferredTime: booking.preferred_time || booking.preferredTime,
+            duration: booking.duration,
+            recordingType: booking.recording_type || booking.recordingType,
+            location: booking.location,
+            meetingLink: booking.meeting_link || booking.meetingLink,
+            notes: booking.notes,
+            status: booking.status,
+        };
     };
 
     const getStatusBadgeClass = (status) => {
@@ -103,9 +176,10 @@ const Bookings = () => {
         return statusClasses[status] || 'badge-primary';
     };
 
+    const normalizedBookings = bookings.map(normalizeBooking);
     const filteredBookings = filterStatus === 'all'
-        ? bookings
-        : bookings.filter(b => b.status === filterStatus);
+        ? normalizedBookings
+        : normalizedBookings.filter(b => b.status === filterStatus);
 
     if (loading) {
         return (
@@ -228,6 +302,17 @@ const Bookings = () => {
                             )}
 
                             <div className="booking-actions">
+                                {/* Join Recording Room for accepted bookings */}
+                                {booking.status === 'accepted' && (
+                                    <button
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => navigate(`/room/${booking.id}`)}
+                                    >
+                                        <Video size={16} />
+                                        Join Recording Room
+                                    </button>
+                                )}
+
                                 {user.role === 'guest' && booking.status === 'pending' && (
                                     <>
                                         <button
