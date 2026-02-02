@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { supabase, isSupabaseConfigured } from '../config/supabase';
-import { User, Mail, MapPin, DollarSign, Briefcase, FileText, Star, Upload } from 'lucide-react';
+import { User, Mail, MapPin, DollarSign, Briefcase, FileText, Star, Upload, Globe, Twitter, Linkedin } from 'lucide-react';
 import './Profile.css';
 
 const ProfileEdit = () => {
@@ -265,7 +265,8 @@ const ProfileEdit = () => {
 
                             <div className="form-group">
                                 <label className="form-label">
-                                    🌐 Website
+                                    <Globe size={18} />
+                                    Website
                                 </label>
                                 <input
                                     type="url"
@@ -279,7 +280,8 @@ const ProfileEdit = () => {
 
                             <div className="form-group">
                                 <label className="form-label">
-                                    🐦 Twitter / X
+                                    <Twitter size={18} />
+                                    Twitter / X
                                 </label>
                                 <input
                                     type="text"
@@ -293,7 +295,8 @@ const ProfileEdit = () => {
 
                             <div className="form-group">
                                 <label className="form-label">
-                                    💼 LinkedIn
+                                    <Linkedin size={18} />
+                                    LinkedIn
                                 </label>
                                 <input
                                     type="text"

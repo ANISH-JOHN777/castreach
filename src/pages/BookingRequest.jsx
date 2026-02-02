@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
 import { supabase } from '../config/supabase';
-import { Calendar, Clock, MapPin, Video, Users, Send, X } from 'lucide-react';
+import { Calendar, Clock, MapPin, Video, Users, Send, X, Globe } from 'lucide-react';
 import './BookingRequest.css';
 
 const BookingRequest = () => {
@@ -272,7 +272,7 @@ const BookingRequest = () => {
                                             checked={formData.recordingType === 'online'}
                                             onChange={handleChange}
                                         />
-                                        <span>🌐 Online (Remote)</span>
+                                        <span><Globe size={16} /> Online (Remote)</span>
                                     </label>
                                     <label className={`radio-option ${formData.recordingType === 'offline' ? 'active' : ''}`}>
                                         <input
@@ -282,7 +282,7 @@ const BookingRequest = () => {
                                             checked={formData.recordingType === 'offline'}
                                             onChange={handleChange}
                                         />
-                                        <span>📍 In-Person (Offline)</span>
+                                        <span><MapPin size={16} /> In-Person (Offline)</span>
                                     </label>
                                 </div>
                             </div>

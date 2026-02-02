@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mic, Mail, Twitter, Linkedin, Github } from 'lucide-react';
+import { Mic, Mail, Twitter, Linkedin, Github, Heart } from 'lucide-react';
 import './Footer.css';
 
 const Footer = () => {
@@ -73,7 +73,7 @@ const Footer = () => {
                         © {currentYear} CastReach. All rights reserved.
                     </p>
                     <p className="footer-tagline">
-                        Built with ❤️ for the podcasting community
+                        Built with <Heart size={14} className="heart-icon" fill="currentColor" /> for the podcasting community
                     </p>
                 </div>
             </div>

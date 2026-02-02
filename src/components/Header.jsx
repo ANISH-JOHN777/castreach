@@ -58,7 +58,7 @@ const Header = () => {
                                     Bookings
                                 </Link>
                                 <Link to="/room" className="nav-link nav-link-highlight">
-                                    🎙️ Recording Room
+                                    <Mic size={16} /> Recording Room
                                 </Link>
                                 <Link to="/messages" className="nav-link">
                                     Messages
@@ -151,7 +151,7 @@ const Header = () => {
                                     className="nav-link-mobile nav-link-highlight"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
-                                    🎙️ Recording Room
+                                    <Mic size={16} /> Recording Room
                                 </Link>
                                 <Link
                                     to="/messages"

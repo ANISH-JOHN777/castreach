@@ -1,4 +1,4 @@
-# 🎙️ CastReach - Complete Feature Roadmap
+﻿# 🎙️ CastReach - Complete Feature Roadmap
 
 This document outlines the complete feature set and development roadmap for CastReach.
 

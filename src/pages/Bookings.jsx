@@ -3,7 +3,12 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
 import { supabase } from '../config/supabase';
-import { Calendar, Clock, MapPin, Video, User, Check, X, Plus, Filter } from 'lucide-react';
+import {
+    Calendar, Clock, MapPin, Video, User, Check, X, Plus, Filter,
+    Search, Download, MoreVertical, Edit, Copy, Trash2, Mail,
+    BarChart3, TrendingUp, AlertCircle, CheckCircle, XCircle,
+    Grid, List, RefreshCw, ArrowUpDown, ChevronDown
+} from 'lucide-react';
 import './Bookings.css';
 
 const Bookings = () => {
@@ -12,7 +17,12 @@ const Bookings = () => {
     const toast = useToast();
     const [bookings, setBookings] = useState([]);
     const [filterStatus, setFilterStatus] = useState('all');
+    const [searchQuery, setSearchQuery] = useState('');
+    const [viewMode, setViewMode] = useState('list'); // 'list' or 'grid'
+    const [sortBy, setSortBy] = useState('date'); // 'date', 'status', 'title'
     const [loading, setLoading] = useState(true);
+    const [selectedBookings, setSelectedBookings] = useState([]);
+    const [showFilters, setShowFilters] = useState(false);
 
     useEffect(() => {
         loadBookings();
@@ -21,7 +31,6 @@ const Bookings = () => {
     const loadBookings = async () => {
         try {
             if (usingSupabase) {
-                // Load bookings from Supabase
                 const { data, error } = await supabase
                     .from('bookings')
                     .select('*')
@@ -29,23 +38,16 @@ const Bookings = () => {
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
-
-                console.log('📚 Loaded bookings from Supabase:', data);
                 setBookings(data || []);
             } else {
-                // Load from localStorage (fallback)
                 const allBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
-
-                // Filter bookings based on user role
                 const userBookings = allBookings.filter(booking => {
                     if (user.role === 'host') {
                         return booking.hostId === user.id;
                     } else {
-                        // For guests, show bookings where they are invited (by name for now)
                         return booking.guestName.toLowerCase().includes(user.name.toLowerCase());
                     }
                 });
-
                 setBookings(userBookings);
             }
         } catch (error) {
@@ -63,20 +65,14 @@ const Bookings = () => {
                     .from('bookings')
                     .update({ status: 'accepted' })
                     .eq('id', bookingId);
-
                 if (error) throw error;
-
-                console.log('✅ Booking accepted in Supabase');
             } else {
                 const allBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
                 const updatedBookings = allBookings.map(booking =>
-                    booking.id === bookingId
-                        ? { ...booking, status: 'accepted' }
-                        : booking
+                    booking.id === bookingId ? { ...booking, status: 'accepted' } : booking
                 );
                 localStorage.setItem('castreach_bookings', JSON.stringify(updatedBookings));
             }
-
             loadBookings();
             toast?.success('Booking request accepted!');
         } catch (error) {
@@ -92,20 +88,14 @@ const Bookings = () => {
                     .from('bookings')
                     .update({ status: 'declined' })
                     .eq('id', bookingId);
-
                 if (error) throw error;
-
-                console.log('✅ Booking declined in Supabase');
             } else {
                 const allBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
                 const updatedBookings = allBookings.map(booking =>
-                    booking.id === bookingId
-                        ? { ...booking, status: 'declined' }
-                        : booking
+                    booking.id === bookingId ? { ...booking, status: 'declined' } : booking
                 );
                 localStorage.setItem('castreach_bookings', JSON.stringify(updatedBookings));
             }
-
             loadBookings();
             toast?.success('Booking request declined');
         } catch (error) {
@@ -116,27 +106,20 @@ const Bookings = () => {
 
     const handleCancel = async (bookingId) => {
         if (!confirm('Are you sure you want to cancel this booking?')) return;
-
         try {
             if (usingSupabase) {
                 const { error } = await supabase
                     .from('bookings')
                     .update({ status: 'cancelled' })
                     .eq('id', bookingId);
-
                 if (error) throw error;
-
-                console.log('✅ Booking cancelled in Supabase');
             } else {
                 const allBookings = JSON.parse(localStorage.getItem('castreach_bookings') || '[]');
                 const updatedBookings = allBookings.map(booking =>
-                    booking.id === bookingId
-                        ? { ...booking, status: 'cancelled' }
-                        : booking
+                    booking.id === bookingId ? { ...booking, status: 'cancelled' } : booking
                 );
                 localStorage.setItem('castreach_bookings', JSON.stringify(updatedBookings));
             }
-
             loadBookings();
             toast?.success('Booking cancelled');
         } catch (error) {
@@ -145,7 +128,6 @@ const Bookings = () => {
         }
     };
 
-    // Normalize booking data to handle both Supabase (snake_case) and localStorage (camelCase)
     const normalizeBooking = (booking) => {
         return {
             id: booking.id,
@@ -176,16 +158,71 @@ const Bookings = () => {
         return statusClasses[status] || 'badge-primary';
     };
 
+    const getStatusIcon = (status) => {
+        switch (status) {
+            case 'accepted':
+                return <CheckCircle size={16} />;
+            case 'declined':
+            case 'cancelled':
+                return <XCircle size={16} />;
+            case 'pending':
+                return <AlertCircle size={16} />;
+            case 'completed':
+                return <Check Circle size={16} />;
+            default:
+                return <Clock size={16} />;
+        }
+    };
+
+    // Calculate statistics
+    const stats = {
+        total: bookings.length,
+        pending: bookings.filter(b => b.status === 'pending').length,
+        accepted: bookings.filter(b => b.status === 'accepted').length,
+        completed: bookings.filter(b => b.status === 'completed').length,
+    };
+
+    // Filter and search bookings
     const normalizedBookings = bookings.map(normalizeBooking);
-    const filteredBookings = filterStatus === 'all'
-        ? normalizedBookings
-        : normalizedBookings.filter(b => b.status === filterStatus);
+    let filteredBookings = normalizedBookings;
+
+    // Apply status filter
+    if (filterStatus !== 'all') {
+        filteredBookings = filteredBookings.filter(b => b.status === filterStatus);
+    }
+
+    // Apply search
+    if (searchQuery) {
+        filteredBookings = filteredBookings.filter(b =>
+            b.episodeTopic?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            b.podcastTitle?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            b.guestName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            b.hostName?.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    }
+
+    // Apply sorting
+    filteredBookings.sort((a, b) => {
+        switch (sortBy) {
+            case 'date':
+                return new Date(b.preferredDate) - new Date(a.preferredDate);
+            case 'status':
+                return a.status.localeCompare(b.status);
+            case 'title':
+                return a.episodeTopic.localeCompare(b.episodeTopic);
+            default:
+                return 0;
+        }
+    });
 
     if (loading) {
         return (
             <div className="bookings-page">
                 <div className="container">
-                    <div className="loading-state">Loading bookings...</div>
+                    <div className="loading-state">
+                        <RefreshCw className="loading-spinner" size={32} />
+                        <p>Loading bookings...</p>
+                    </div>
                 </div>
             </div>
         );
@@ -194,6 +231,7 @@ const Bookings = () => {
     return (
         <div className="bookings-page">
             <div className="container">
+                {/* Header */}
                 <div className="bookings-header">
                     <div>
                         <h1 className="bookings-title">My Bookings</h1>
@@ -201,36 +239,123 @@ const Bookings = () => {
                             {user.role === 'host' ? 'Manage your podcast recordings' : 'Your upcoming appearances'}
                         </p>
                     </div>
-                    {user.role === 'host' && (
-                        <button
-                            className="btn btn-primary"
-                            onClick={() => navigate('/booking/request')}
-                        >
-                            <Plus size={18} />
-                            New Booking
-                        </button>
-                    )}
-                </div>
-
-                <div className="bookings-filters">
-                    <div className="filter-group">
-                        <Filter size={18} />
-                        <select
-                            className="filter-select"
-                            value={filterStatus}
-                            onChange={(e) => setFilterStatus(e.target.value)}
-                        >
-                            <option value="all">All Bookings</option>
-                            <option value="pending">Pending</option>
-                            <option value="accepted">Accepted</option>
-                            <option value="declined">Declined</option>
-                            <option value="cancelled">Cancelled</option>
-                            <option value="completed">Completed</option>
-                        </select>
+                    <div className="header-actions">
+                        {user.role === 'host' && (
+                            <button
+                                className="btn btn-primary"
+                                onClick={() => navigate('/booking/request')}
+                            >
+                                <Plus size={18} />
+                                New Booking
+                            </button>
+                        )}
                     </div>
                 </div>
 
-                <div className="bookings-list">
+                {/* Statistics Dashboard */}
+                <div className="stats-grid">
+                    <div className="stat-card">
+                        <div className="stat-icon stat-icon-primary">
+                            <Calendar size={24} />
+                        </div>
+                        <div className="stat-content">
+                            <div className="stat-value">{stats.total}</div>
+                            <div className="stat-label">Total Bookings</div>
+                        </div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-icon stat-icon-warning">
+                            <Clock size={24} />
+                        </div>
+                        <div className="stat-content">
+                            <div className="stat-value">{stats.pending}</div>
+                            <div className="stat-label">Pending</div>
+                        </div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-icon stat-icon-success">
+                            <CheckCircle size={24} />
+                        </div>
+                        <div className="stat-content">
+                            <div className="stat-value">{stats.accepted}</div>
+                            <div className="stat-label">Accepted</div>
+                        </div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-icon stat-icon-info">
+                            <TrendingUp size={24} />
+                        </div>
+                        <div className="stat-content">
+                            <div className="stat-value">{stats.completed}</div>
+                            <div className="stat-label">Completed</div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Filters and Search */}
+                <div className="bookings-toolbar">
+                    <div className="search-box">
+                        <Search size={18} />
+                        <input
+                            type="text"
+                            placeholder="Search bookings..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="search-input"
+                        />
+                    </div>
+
+                    <div className="toolbar-actions">
+                        <div className="filter-group">
+                            <Filter size={18} />
+                            <select
+                                className="filter-select"
+                                value={filterStatus}
+                                onChange={(e) => setFilterStatus(e.target.value)}
+                            >
+                                <option value="all">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="accepted">Accepted</option>
+                                <option value="declined">Declined</option>
+                                <option value="cancelled">Cancelled</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+
+                        <div className="filter-group">
+                            <ArrowUpDown size={18} />
+                            <select
+                                className="filter-select"
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
+                            >
+                                <option value="date">Sort by Date</option>
+                                <option value="status">Sort by Status</option>
+                                <option value="title">Sort by Title</option>
+                            </select>
+                        </div>
+
+                        <div className="view-toggle">
+                            <button
+                                className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                                onClick={() => setViewMode('list')}
+                                title="List View"
+                            >
+                                <List size={18} />
+                            </button>
+                            <button
+                                className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                                onClick={() => setViewMode('grid')}
+                                title="Grid View"
+                            >
+                                <Grid size={18} />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Bookings List/Grid */}
+                <div className={`bookings-list ${viewMode === 'grid' ? 'grid-view' : ''}`}>
                     {filteredBookings.map(booking => (
                         <div key={booking.id} className="booking-card">
                             <div className="booking-header">
@@ -248,9 +373,12 @@ const Bookings = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <span className={`status-badge ${getStatusBadgeClass(booking.status)}`}>
-                                    {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
-                                </span>
+                                <div className="booking-status-wrapper">
+                                    <span className={`status-badge ${getStatusBadgeClass(booking.status)}`}>
+                                        {getStatusIcon(booking.status)}
+                                        {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                                    </span>
+                                </div>
                             </div>
 
                             {booking.description && (
@@ -261,9 +389,9 @@ const Bookings = () => {
                                 <div className="detail-item">
                                     <Calendar size={16} />
                                     <span>{new Date(booking.preferredDate).toLocaleDateString('en-US', {
-                                        weekday: 'long',
+                                        weekday: 'short',
                                         year: 'numeric',
-                                        month: 'long',
+                                        month: 'short',
                                         day: 'numeric'
                                     })}</span>
                                 </div>
@@ -302,7 +430,6 @@ const Bookings = () => {
                             )}
 
                             <div className="booking-actions">
-                                {/* Join Recording Room for accepted bookings */}
                                 {booking.status === 'accepted' && (
                                     <button
                                         className="btn btn-primary btn-sm"
@@ -331,6 +458,7 @@ const Bookings = () => {
                                         </button>
                                     </>
                                 )}
+
                                 {user.role === 'host' && (booking.status === 'pending' || booking.status === 'accepted') && (
                                     <button
                                         className="btn btn-secondary btn-sm"
@@ -340,12 +468,20 @@ const Bookings = () => {
                                         Cancel
                                     </button>
                                 )}
+
                                 <button
                                     className="btn btn-outline btn-sm"
                                     onClick={() => navigate(`/messages`)}
                                 >
+                                    <Mail size={16} />
                                     Message
                                 </button>
+
+                                <div className="dropdown">
+                                    <button className="btn btn-icon btn-sm">
+                                        <MoreVertical size={16} />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ))}
@@ -356,13 +492,15 @@ const Bookings = () => {
                         <Calendar className="empty-icon" size={64} />
                         <h3>No bookings found</h3>
                         <p>
-                            {filterStatus === 'all'
-                                ? user.role === 'host'
-                                    ? "You haven't created any booking requests yet"
-                                    : "You don't have any booking invitations"
-                                : `No ${filterStatus} bookings`}
+                            {searchQuery
+                                ? `No bookings match "${searchQuery}"`
+                                : filterStatus === 'all'
+                                    ? user.role === 'host'
+                                        ? "You haven't created any booking requests yet"
+                                        : "You don't have any booking invitations"
+                                    : `No ${filterStatus} bookings`}
                         </p>
-                        {user.role === 'host' && filterStatus === 'all' && (
+                        {user.role === 'host' && filterStatus === 'all' && !searchQuery && (
                             <button
                                 className="btn btn-primary"
                                 onClick={() => navigate('/booking/request')}

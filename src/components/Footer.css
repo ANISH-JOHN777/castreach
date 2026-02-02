@@ -115,6 +115,13 @@
     margin: 0;
 }
 
+.footer-tagline .heart-icon {
+    display: inline-block;
+    vertical-align: middle;
+    color: var(--error-color);
+    margin: 0 2px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .footer {
