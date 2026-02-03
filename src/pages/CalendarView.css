@@ -2,6 +2,7 @@
     min-height: 100vh;
     padding: 2rem 0;
     background: var(--bg-secondary);
+    color: var(--text-primary);
 }
 
 .calendar-header {
@@ -14,7 +15,7 @@
 .calendar-title {
     font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -143,7 +144,7 @@
 }
 
 .calendar-day.today {
-    background: rgba(103, 77, 102, 0.05);
+    background: rgba(103, 77, 102, 0.1);
 }
 
 .calendar-day.today .day-number {
@@ -181,7 +182,7 @@
 
 .day-event:hover {
     transform: translateX(2px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
 }
 
 .day-event.event-recording {
@@ -242,7 +243,7 @@
 
 .event-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(103, 77, 102, 0.12);
+    box-shadow: var(--shadow-md);
 }
 
 .event-card.event-recording {
@@ -365,37 +366,31 @@
     border-style: dashed;
 }
 
-/* Dark Mode */
-.dark-mode .calendar-page {
-    background: #1a1625;
-}
-
+/* Dark Mode Overrides */
 .dark-mode .calendar-grid,
 .dark-mode .event-card,
-.dark-mode .calendar-legend {
-    background: #2a2435;
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-.dark-mode .calendar-weekdays {
-    background: #1f1a2b;
-    border-bottom-color: rgba(255, 255, 255, 0.1);
+.dark-mode .calendar-legend,
+.dark-mode .nav-btn,
+.dark-mode .view-selector {
+    background: var(--bg-tertiary);
 }
 
 .dark-mode .calendar-day {
-    background: #2a2435;
+    background: var(--bg-tertiary);
 }
 
 .dark-mode .calendar-day.empty {
-    background: #1f1a2b;
+    background: var(--bg-secondary);
 }
 
-.dark-mode .calendar-day:not(.empty):hover {
-    background: #352f40;
+.dark-mode .calendar-day.today {
+    background: rgba(235, 214, 220, 0.1);
 }
 
-.dark-mode .calendar-days {
-    background: rgba(255, 255, 255, 0.05);
+.dark-mode .day-event.event-recording {
+    background: rgba(235, 214, 220, 0.1);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
 }
 
 /* Responsive */

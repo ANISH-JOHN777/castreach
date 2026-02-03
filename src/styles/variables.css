@@ -85,3 +85,24 @@
   --container-max-width: 1280px;
   --container-padding: var(--spacing-lg);
 }
+
+/* Dark Mode Variables Override */
+.dark-mode {
+  --bg-primary: #1A1625;
+  --bg-secondary: #0F0C14;
+  --bg-tertiary: #251F33;
+  --bg-dark: #000000;
+
+  --text-primary: #F7EFF6;
+  --text-secondary: #BDA5BD;
+  --text-tertiary: #9D879E;
+  --text-inverse: #ffffff;
+
+  --border-color: #3D2B3D;
+  --border-light: #2D2433;
+  --border-dark: #5A4159;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7);
+}

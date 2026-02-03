@@ -2,6 +2,7 @@
     min-height: 100vh;
     padding: 2rem 0;
     background: var(--bg-secondary);
+    color: var(--text-primary);
 }
 
 .analytics-header {
@@ -16,7 +17,7 @@
 .analytics-title {
     font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -77,7 +78,7 @@
 
 .stat-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(103, 77, 102, 0.12);
+    box-shadow: var(--shadow-md);
 }
 
 .stat-icon {
@@ -253,13 +254,13 @@
     width: 12px;
     height: 12px;
     background: var(--warning-color);
-    border: 3px solid white;
+    border: 3px solid var(--bg-primary);
     border-radius: 50%;
     left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
     transition: all var(--transition-base);
-    box-shadow: 0 2px 8px rgba(201, 166, 107, 0.3);
+    box-shadow: var(--shadow-sm);
 }
 
 .line-point:hover {
@@ -440,7 +441,7 @@
 
 .breakdown-item:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(103, 77, 102, 0.1);
+    box-shadow: var(--shadow-md);
 }
 
 .breakdown-item.completed {
@@ -491,28 +492,18 @@
     font-weight: 500;
 }
 
-/* Dark Mode */
-.dark-mode .analytics-page {
-    background: #1a1625;
-}
-
+/* Dark Mode fixes are now mostly handled by variables in variables.css */
+/* We can add specific overrides here if needed */
 .dark-mode .stat-card,
 .dark-mode .chart-card,
 .dark-mode .insight-card,
-.dark-mode .booking-breakdown {
-    background: #2a2435;
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
+.dark-mode .booking-breakdown,
 .dark-mode .time-range-selector {
-    background: #2a2435;
-    border-color: rgba(255, 255, 255, 0.1);
+    background: var(--bg-tertiary);
 }
 
-.dark-mode .bar,
-.dark-mode .topic-bar,
-.dark-mode .demo-bar {
-    opacity: 0.9;
+.dark-mode .breakdown-item {
+    background: var(--bg-primary);
 }
 
 /* Responsive */
