@@ -270,7 +270,7 @@ export const mockReviews = [
         revieweeName: 'Dr. Sarah Mitchell',
         rating: 5,
         comment: 'Absolutely phenomenal guest! Sarah brought incredible insights on AI ethics and was extremely well-prepared. Our audience loved the episode and engagement was through the roof. Highly recommend!',
-        date: '2024-01-15',
+        date: '2026-01-15',
         helpful: 45,
         verified: true
     },
@@ -284,7 +284,7 @@ export const mockReviews = [
         revieweeName: 'Emma Rodriguez',
         rating: 5,
         comment: 'Emma is a true professional and her expertise in mindfulness really shined through. The conversation flowed naturally and she provided so much value to our listeners. Will definitely have her back!',
-        date: '2024-01-20',
+        date: '2026-01-20',
         helpful: 38,
         verified: true
     },
@@ -298,7 +298,7 @@ export const mockReviews = [
         revieweeName: 'Business Breakthrough',
         rating: 5,
         comment: 'Great experience from start to finish. The host was professional, well-researched, and asked thoughtful questions. The editing was top-notch and the final episode exceeded my expectations.',
-        date: '2024-01-18',
+        date: '2026-01-18',
         helpful: 29,
         verified: true
     }
@@ -369,11 +369,11 @@ export const mockAnalytics = {
         lastMonth: 298,
         trend: '+14.8%',
         data: [
-            { date: '2024-01-01', views: 45 },
-            { date: '2024-01-08', views: 52 },
-            { date: '2024-01-15', views: 68 },
-            { date: '2024-01-22', views: 71 },
-            { date: '2024-01-29', views: 106 }
+            { date: '2026-01-06', views: 45 },
+            { date: '2026-01-13', views: 52 },
+            { date: '2026-01-20', views: 68 },
+            { date: '2026-01-27', views: 71 },
+            { date: '2026-02-03', views: 106 }
         ]
     },
     bookings: {
@@ -432,8 +432,8 @@ export const mockCalendarEvents = [
     {
         id: 1,
         title: 'Recording: AI Ethics Discussion',
-        start: new Date(2024, 1, 5, 14, 0),
-        end: new Date(2024, 1, 5, 15, 0),
+        start: new Date(2026, 1, 5, 14, 0), // Feb 5, 2026
+        end: new Date(2026, 1, 5, 15, 0),
         type: 'recording',
         status: 'confirmed',
         guest: 'Dr. Sarah Mitchell',
@@ -442,8 +442,8 @@ export const mockCalendarEvents = [
     {
         id: 2,
         title: 'Prep Call: Wellness Episode',
-        start: new Date(2024, 1, 7, 10, 0),
-        end: new Date(2024, 1, 7, 10, 30),
+        start: new Date(2026, 1, 7, 10, 0), // Feb 7, 2026
+        end: new Date(2026, 1, 7, 10, 30),
         type: 'preparation',
         status: 'confirmed',
         guest: 'Emma Rodriguez',
@@ -452,8 +452,8 @@ export const mockCalendarEvents = [
     {
         id: 3,
         title: 'Recording: Startup Funding Strategies',
-        start: new Date(2024, 1, 10, 16, 0),
-        end: new Date(2024, 1, 10, 17, 30),
+        start: new Date(2026, 1, 10, 16, 0), // Feb 10, 2026
+        end: new Date(2026, 1, 10, 17, 30),
         type: 'recording',
         status: 'pending',
         guest: 'Marcus Chen',
@@ -473,8 +473,8 @@ export const mockBookings = [
         hostName: 'Tech Talk Daily',
         hostAvatar: 'https://ui-avatars.com/api/?name=Tech+Talk&background=674D66&color=fff&size=200',
         podcastName: 'Tech Talk Daily',
-        episodeTitle: 'AI Ethics in 2024',
-        date: '2024-02-05',
+        episodeTitle: 'AI Ethics in 2026',
+        date: '2026-02-05',
         time: '14:00',
         duration: '60 minutes',
         status: 'confirmed',
@@ -492,7 +492,7 @@ export const mockBookings = [
         hostAvatar: 'https://ui-avatars.com/api/?name=Wellness+Hour&background=674D66&color=fff&size=200',
         podcastName: 'The Wellness Hour',
         episodeTitle: 'Mindfulness in Modern Life',
-        date: '2024-02-07',
+        date: '2026-02-07',
         time: '10:00',
         duration: '45 minutes',
         status: 'confirmed',
@@ -510,7 +510,7 @@ export const mockBookings = [
         hostAvatar: 'https://ui-avatars.com/api/?name=Business+Breakthrough&background=674D66&color=fff&size=200',
         podcastName: 'Business Breakthrough',
         episodeTitle: 'Startup Funding Strategies',
-        date: '2024-02-10',
+        date: '2026-02-10',
         time: '16:00',
         duration: '70 minutes',
         status: 'pending',
@@ -527,8 +527,8 @@ export const mockBookings = [
         hostName: 'Tech Talk Daily',
         hostAvatar: 'https://ui-avatars.com/api/?name=Tech+Talk&background=674D66&color=fff&size=200',
         podcastName: 'Tech Talk Daily',
-        episodeTitle: 'Digital Marketing Trends 2024',
-        date: '2024-02-12',
+        episodeTitle: 'Digital Marketing Trends 2026',
+        date: '2026-02-12',
         time: '15:00',
         duration: '50 minutes',
         status: 'pending',
@@ -546,7 +546,7 @@ export const mockBookings = [
         hostAvatar: 'https://ui-avatars.com/api/?name=Wellness+Hour&background=674D66&color=fff&size=200',
         podcastName: 'The Wellness Hour',
         episodeTitle: 'Climate Change and Mental Health',
-        date: '2024-01-28',
+        date: '2026-01-28',
         time: '11:00',
         duration: '45 minutes',
         status: 'completed',

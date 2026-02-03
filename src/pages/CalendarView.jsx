@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, User, Video
 import './CalendarView.css';
 
 const CalendarView = () => {
-    const [currentDate, setCurrentDate] = useState(new Date(2024, 1, 1)); // February 2024
+    const [currentDate, setCurrentDate] = useState(new Date(2026, 1, 1)); // February 2026
     const [view, setView] = useState('month'); // month, week, day
     const [events] = useState(mockCalendarEvents);
 
