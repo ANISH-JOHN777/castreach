@@ -2,7 +2,7 @@
 .bookings-page {
     min-height: 100vh;
     padding: 2rem 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--bg-gradient-primary);
 }
 
 .container {
@@ -26,7 +26,7 @@
 .bookings-title {
     font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0.5rem;
@@ -77,22 +77,22 @@
 }
 
 .stat-icon-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
     color: white;
 }
 
 .stat-icon-warning {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: linear-gradient(135deg, var(--warning-600) 0%, var(--warning-700) 100%);
     color: white;
 }
 
 .stat-icon-success {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, var(--success-600) 0%, var(--success-700) 100%);
     color: white;
 }
 
 .stat-icon-info {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    background: linear-gradient(135deg, var(--info-600) 0%, var(--info-700) 100%);
     color: white;
 }
 
@@ -208,7 +208,7 @@
 }
 
 .view-btn.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
     color: white;
 }
 
@@ -242,7 +242,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(90deg, var(--primary-600) 0%, var(--secondary-600) 100%);
 }
 
 .booking-card:hover {
@@ -272,7 +272,7 @@
 }
 
 .booking-podcast {
-    color: #667eea;
+    color: var(--primary-600);
     font-weight: 600;
     margin-bottom: 1rem;
     font-size: 1.05rem;
@@ -367,7 +367,7 @@
 }
 
 .detail-item svg {
-    color: #667eea;
+    color: var(--primary-600);
     flex-shrink: 0;
 }
 
@@ -382,11 +382,11 @@
 }
 
 .meeting-link svg {
-    color: #667eea;
+    color: var(--primary-600);
 }
 
 .meeting-link a {
-    color: #667eea;
+    color: var(--primary-600);
     font-weight: 700;
     text-decoration: none;
     font-size: 1rem;
@@ -399,7 +399,7 @@
 .booking-notes {
     padding: 1.25rem;
     background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-    border-left: 4px solid #667eea;
+    border-left: 4px solid var(--primary-600);
     border-radius: 8px;
     margin-bottom: 1.5rem;
     color: #4a5568;
@@ -440,7 +440,7 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
     color: white;
 }
 
@@ -450,7 +450,7 @@
 }
 
 .btn-success {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, var(--success-600) 0%, var(--success-700) 100%);
     color: white;
 }
 
@@ -460,7 +460,7 @@
 }
 
 .btn-danger {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    background: linear-gradient(135deg, var(--error-600) 0%, var(--error-700) 100%);
     color: white;
 }
 
@@ -485,8 +485,8 @@
 }
 
 .btn-outline:hover {
-    border-color: #667eea;
-    color: #667eea;
+    border-color: var(--primary-600);
+    color: var(--primary-600);
     background: #f7fafc;
 }
 
@@ -498,8 +498,8 @@
 }
 
 .btn-icon:hover {
-    border-color: #667eea;
-    color: #667eea;
+    border-color: var(--primary-600);
+    color: var(--primary-600);
     background: #f7fafc;
 }
 
@@ -543,7 +543,7 @@
 }
 
 .loading-spinner {
-    color: #667eea;
+    color: var(--primary-600);
     animation: spin 1s linear infinite;
 }
 
