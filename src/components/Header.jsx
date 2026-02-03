@@ -64,12 +64,6 @@ const Header = () => {
                                 <Link to="/bookings" className="nav-link">
                                     Bookings
                                 </Link>
-                                <Link to="/calendar" className="nav-link">
-                                    <Calendar size={16} /> Calendar
-                                </Link>
-                                <Link to="/analytics" className="nav-link">
-                                    <BarChart3 size={16} /> Analytics
-                                </Link>
                                 <Link to="/room" className="nav-link nav-link-highlight">
                                     <Mic size={16} /> Recording Room
                                 </Link>
