@@ -180,12 +180,12 @@ function AppRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
       <DarkModeProvider>
         <ToastProvider>
           <AuthProvider>
             <FavoritesProvider>
               <NotificationsProvider>
+                <ScrollToTop />
                 <AppRoutes />
               </NotificationsProvider>
             </FavoritesProvider>

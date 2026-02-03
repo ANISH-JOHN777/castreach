@@ -462,3 +462,154 @@ export const mockCalendarEvents = [
 ];
 
 export const mockFavorites = [1, 3, 101]; // IDs of favorited profiles
+
+export const mockBookings = [
+    {
+        id: 1,
+        guestId: 1,
+        guestName: 'Dr. Sarah Mitchell',
+        guestAvatar: 'https://ui-avatars.com/api/?name=Sarah+Mitchell&background=674D66&color=fff&size=200',
+        hostId: 101,
+        hostName: 'Tech Talk Daily',
+        hostAvatar: 'https://ui-avatars.com/api/?name=Tech+Talk&background=674D66&color=fff&size=200',
+        podcastName: 'Tech Talk Daily',
+        episodeTitle: 'AI Ethics in 2024',
+        date: '2024-02-05',
+        time: '14:00',
+        duration: '60 minutes',
+        status: 'confirmed',
+        type: 'video',
+        price: 500,
+        notes: 'Looking forward to discussing AI ethics and the future of responsible AI development.'
+    },
+    {
+        id: 2,
+        guestId: 3,
+        guestName: 'Emma Rodriguez',
+        guestAvatar: 'https://ui-avatars.com/api/?name=Emma+Rodriguez&background=674D66&color=fff&size=200',
+        hostId: 102,
+        hostName: 'The Wellness Hour',
+        hostAvatar: 'https://ui-avatars.com/api/?name=Wellness+Hour&background=674D66&color=fff&size=200',
+        podcastName: 'The Wellness Hour',
+        episodeTitle: 'Mindfulness in Modern Life',
+        date: '2024-02-07',
+        time: '10:00',
+        duration: '45 minutes',
+        status: 'confirmed',
+        type: 'audio',
+        price: 400,
+        notes: 'Excited to share mindfulness techniques with your audience!'
+    },
+    {
+        id: 3,
+        guestId: 2,
+        guestName: 'Marcus Chen',
+        guestAvatar: 'https://ui-avatars.com/api/?name=Marcus+Chen&background=674D66&color=fff&size=200',
+        hostId: 103,
+        hostName: 'Business Breakthrough',
+        hostAvatar: 'https://ui-avatars.com/api/?name=Business+Breakthrough&background=674D66&color=fff&size=200',
+        podcastName: 'Business Breakthrough',
+        episodeTitle: 'Startup Funding Strategies',
+        date: '2024-02-10',
+        time: '16:00',
+        duration: '70 minutes',
+        status: 'pending',
+        type: 'video',
+        price: 750,
+        notes: 'Will cover fundraising strategies and investor relations.'
+    },
+    {
+        id: 4,
+        guestId: 5,
+        guestName: 'Priya Sharma',
+        guestAvatar: 'https://ui-avatars.com/api/?name=Priya+Sharma&background=674D66&color=fff&size=200',
+        hostId: 101,
+        hostName: 'Tech Talk Daily',
+        hostAvatar: 'https://ui-avatars.com/api/?name=Tech+Talk&background=674D66&color=fff&size=200',
+        podcastName: 'Tech Talk Daily',
+        episodeTitle: 'Digital Marketing Trends 2024',
+        date: '2024-02-12',
+        time: '15:00',
+        duration: '50 minutes',
+        status: 'pending',
+        type: 'video',
+        price: 450,
+        notes: 'Will discuss latest trends in social media and content marketing.'
+    },
+    {
+        id: 5,
+        guestId: 4,
+        guestName: 'Dr. James Patterson',
+        guestAvatar: 'https://ui-avatars.com/api/?name=James+Patterson&background=674D66&color=fff&size=200',
+        hostId: 102,
+        hostName: 'The Wellness Hour',
+        hostAvatar: 'https://ui-avatars.com/api/?name=Wellness+Hour&background=674D66&color=fff&size=200',
+        podcastName: 'The Wellness Hour',
+        episodeTitle: 'Climate Change and Mental Health',
+        date: '2024-01-28',
+        time: '11:00',
+        duration: '45 minutes',
+        status: 'completed',
+        type: 'audio',
+        price: 350,
+        notes: 'Great discussion on the psychological impacts of climate change.'
+    }
+];
+
+export const mockMessages = [
+    {
+        id: 1,
+        bookingId: 1,
+        senderId: 101,
+        senderName: 'Tech Talk Daily',
+        receiverId: 1,
+        receiverName: 'Dr. Sarah Mitchell',
+        message: 'Hi Sarah! Really excited about our upcoming episode on AI Ethics. Do you have any specific topics you\'d like to focus on?',
+        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 3),
+        read: true
+    },
+    {
+        id: 2,
+        bookingId: 1,
+        senderId: 1,
+        senderName: 'Dr. Sarah Mitchell',
+        receiverId: 101,
+        receiverName: 'Tech Talk Daily',
+        message: 'Thank you! I\'d love to discuss bias in AI systems and the importance of diverse training data. Also, we could touch on AI regulation.',
+        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2),
+        read: true
+    },
+    {
+        id: 3,
+        bookingId: 1,
+        senderId: 101,
+        senderName: 'Tech Talk Daily',
+        receiverId: 1,
+        receiverName: 'Dr. Sarah Mitchell',
+        message: 'Perfect! Those are exactly the topics our audience is interested in. I\'ll prepare some questions around those themes.',
+        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 1),
+        read: true
+    },
+    {
+        id: 4,
+        bookingId: 2,
+        senderId: 3,
+        senderName: 'Emma Rodriguez',
+        receiverId: 102,
+        receiverName: 'The Wellness Hour',
+        message: 'Hi! I wanted to share some resources about mindfulness practices that we could reference during the episode.',
+        timestamp: new Date(Date.now() - 1000 * 60 * 120),
+        read: false
+    },
+    {
+        id: 5,
+        bookingId: 3,
+        senderId: 103,
+        senderName: 'Business Breakthrough',
+        receiverId: 2,
+        receiverName: 'Marcus Chen',
+        message: 'Marcus, could you share some of your most memorable fundraising experiences? Our listeners love real-world stories.',
+        timestamp: new Date(Date.now() - 1000 * 60 * 180),
+        read: false
+    }
+];
