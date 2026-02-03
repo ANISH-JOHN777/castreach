@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
 import { supabase } from '../config/supabase';
 import { Calendar, Clock, MapPin, Video, Users, Send, X, Globe } from 'lucide-react';
@@ -9,6 +9,7 @@ import './BookingRequest.css';
 const BookingRequest = () => {
     const { user, usingSupabase } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
     const toast = useToast();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -25,6 +26,18 @@ const BookingRequest = () => {
         meetingLink: '',
         notes: '',
     });
+
+    // Pre-fill guest data if coming from Discover page
+    useEffect(() => {
+        if (location.state?.guestData) {
+            const guest = location.state.guestData;
+            setFormData(prev => ({
+                ...prev,
+                guestId: guest.id || '',
+                guestName: guest.name || '',
+            }));
+        }
+    }, [location.state]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

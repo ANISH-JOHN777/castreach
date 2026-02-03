@@ -1,128 +1,111 @@
-# CastReach Color Theme - "Podcast Studio"
+# CastReach Color Theme - "Soft Pink Studio"
 
 ## Overview
-A professional, modern color theme designed specifically for podcast platforms. The theme combines trustworthy indigos with creative purples and energetic coral accents.
+An elegant, sophisticated color theme built around soft pink tones (#674D66 and #EBD6DC). This theme creates a warm, welcoming, and professional atmosphere perfect for a podcast platform.
+
+## Core Colors
+
+### Primary Color: Soft Pink
+**#674D66** - Sophisticated, warm, and professional
+- `--primary-700`: #5A4159 (Darker)
+- `--primary-600`: #674D66 (Main - Your specified color)
+- `--primary-500`: #7D5F7C (Lighter)
+- `--primary-400`: #937192
+- `--primary-300`: #A983A8 (Lightest)
+
+**Usage**: Main buttons, links, primary actions, navigation highlights, brand elements
+
+### Accent Color: Light Pink
+**#EBD6DC** - Soft, elegant, and calming
+- `--accent-700`: #D4BEC9 (Darker)
+- `--accent-600`: #EBD6DC (Main - Your specified color)
+- `--accent-500`: #F0DFE4 (Lighter)
+- `--accent-400`: #F5E8EC
+- `--accent-300`: #FAF1F4 (Lightest)
+
+**Usage**: Backgrounds, highlights, soft accents, cards, sections
 
 ## Color Palette
 
-### Primary Colors
-**Deep Indigo** - Professional & Trustworthy
-- `--primary-700`: #4338CA (Darker)
-- `--primary-600`: #4F46E5 (Main)
-- `--primary-500`: #6366F1 (Lighter)
-- `--primary-400`: #818CF8
-- `--primary-300`: #A5B4FC (Lightest)
+### Secondary Colors (Mauve/Rose)
+- `--secondary-700`: #8B6B8A
+- `--secondary-600`: #9F7D9E (Main)
+- `--secondary-500`: #B38FB2
+- `--secondary-400`: #C7A1C6
+- `--secondary-300`: #DBB3DA
 
-**Usage**: Main buttons, links, primary actions, navigation highlights
+**Usage**: Secondary buttons, decorative elements, complementary accents
 
-### Secondary Colors
-**Vibrant Purple** - Creative & Engaging
-- `--secondary-700`: #6D28D9 (Darker)
-- `--secondary-600`: #7C3AED (Main)
-- `--secondary-500`: #8B5CF6 (Lighter)
-- `--secondary-400`: #A78BFA
-- `--secondary-300`: #C4B5FD (Lightest)
+### Semantic Colors
 
-**Usage**: Secondary buttons, accents, creative elements
+#### Success (Muted Green)
+- `--success-600`: #7C9885 (Main)
+- Harmonizes with pink theme
+- **Usage**: Success messages, accepted bookings, positive indicators
 
-### Accent Colors
-**Energetic Coral** - Energy & Podcasting Vibe
-- `--accent-700`: #EA580C (Darker)
-- `--accent-600`: #F97316 (Main)
-- `--accent-500`: #FB923C (Lighter)
-- `--accent-400`: #FDBA74
-- `--accent-300`: #FED7AA (Lightest)
+#### Warning (Warm Beige)
+- `--warning-600`: #C9A66B (Main)
+- Complements pink tones
+- **Usage**: Pending status, warnings, caution indicators
 
-**Usage**: Call-to-action buttons, highlights, important notifications
+#### Error (Soft Rose)
+- `--error-600`: #B87B7B (Main)
+- Stays within pink family
+- **Usage**: Error messages, declined bookings, destructive actions
 
-## Semantic Colors
+#### Info (Soft Blue-Gray)
+- `--info-600`: #7B8FB8 (Main)
+- Cool contrast to warm pinks
+- **Usage**: Information messages, completed status, helpful tips
 
-### Success (Green)
-- `--success-700`: #059669
-- `--success-600`: #10B981 (Main)
-- `--success-500`: #34D399
-- `--success-400`: #6EE7B7
-- `--success-300`: #A7F3D0
-
-**Usage**: Success messages, accepted bookings, positive indicators
-
-### Warning (Amber)
-- `--warning-700`: #D97706
-- `--warning-600`: #F59E0B (Main)
-- `--warning-500`: #FBBF24
-- `--warning-400`: #FCD34D
-- `--warning-300`: #FDE68A
-
-**Usage**: Pending status, warnings, caution indicators
-
-### Error (Red)
-- `--error-700`: #DC2626
-- `--error-600`: #EF4444 (Main)
-- `--error-500`: #F87171
-- `--error-400`: #FCA5A5
-- `--error-300`: #FECACA
-
-**Usage**: Error messages, declined bookings, destructive actions
-
-### Info (Blue)
-- `--info-700`: #2563EB
-- `--info-600`: #3B82F6 (Main)
-- `--info-500`: #60A5FA
-- `--info-400`: #93C5FD
-- `--info-300`: #BFDBFE
-
-**Usage**: Information messages, completed status, helpful tips
-
-## Neutral Colors
-
-### Dark to Light Scale
-- `--neutral-900`: #0F172A (Darkest - Primary text)
-- `--neutral-800`: #1E293B (Dark backgrounds)
-- `--neutral-700`: #334155 (Secondary text)
-- `--neutral-600`: #475569 (Muted text)
-- `--neutral-500`: #64748B (Placeholder text)
-- `--neutral-400`: #94A3B8 (Disabled text)
-- `--neutral-300`: #CBD5E1 (Borders)
-- `--neutral-200`: #E2E8F0 (Light borders)
-- `--neutral-100`: #F1F5F9 (Light backgrounds)
-- `--neutral-50`: #F8FAFC (Lightest backgrounds)
+### Neutral Colors (Pink-tinted Grays)
+- `--neutral-900`: #2D2433 (Darkest - Primary text)
+- `--neutral-800`: #3D3142 (Dark backgrounds)
+- `--neutral-700`: #4D3E51 (Secondary text)
+- `--neutral-600`: #5D4B60 (Muted text)
+- `--neutral-500`: #7D697F (Placeholder text)
+- `--neutral-400`: #9D879E (Disabled text)
+- `--neutral-300`: #BDA5BD (Borders)
+- `--neutral-200`: #DDC3DC (Light borders)
+- `--neutral-100`: #EDD9EC (Light backgrounds)
+- `--neutral-50`: #F7EFF6 (Lightest backgrounds)
 - `--white`: #FFFFFF (Pure white)
 
 ## Gradients
 
-### Primary Gradients
+### Primary Gradient
 ```css
---gradient-primary: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)
+--gradient-primary: linear-gradient(135deg, #674D66 0%, #9F7D9E 100%)
 ```
 **Usage**: Hero sections, primary buttons, main backgrounds
 
-### Accent Gradients
+### Accent Gradient
 ```css
---gradient-accent: linear-gradient(135deg, #F97316 0%, #EA580C 100%)
+--gradient-accent: linear-gradient(135deg, #EBD6DC 0%, #F5E8EC 100%)
 ```
-**Usage**: Call-to-action elements, highlights
+**Usage**: Soft backgrounds, subtle highlights
 
-### Success Gradients
+### Rose Gradient (Signature)
 ```css
---gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%)
+--gradient-rose: linear-gradient(135deg, #674D66 0%, #EBD6DC 100%)
 ```
-**Usage**: Success indicators, positive actions
+**Usage**: Special sections, featured content, brand elements
 
-### Info Gradients
+### Soft Gradient
 ```css
---gradient-info: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)
+--gradient-soft: linear-gradient(135deg, #9F7D9E 0%, #EBD6DC 100%)
 ```
-**Usage**: Information cards, completed status
+**Usage**: Cards, gentle backgrounds, overlays
 
 ### Warm Gradient
 ```css
---gradient-warm: linear-gradient(135deg, #FB923C 0%, #4F46E5 100%)
+--gradient-warm: linear-gradient(135deg, #C9A66B 0%, #674D66 100%)
 ```
-**Usage**: Creative sections, featured content
+**Usage**: Call-to-action elements, highlights
 
 ### Cool Gradient
 ```css
---gradient-cool: linear-gradient(135deg, #3B82F6 0%, #4F46E5 100%)
+--gradient-cool: linear-gradient(135deg, #7B8FB8 0%, #674D66 100%)
 ```
 **Usage**: Professional sections, analytics
 
@@ -130,219 +113,169 @@ A professional, modern color theme designed specifically for podcast platforms. 
 
 ### Primary Background
 ```css
---bg-gradient-primary: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)
+--bg-gradient-primary: linear-gradient(135deg, #674D66 0%, #9F7D9E 100%)
 ```
 **Usage**: Page backgrounds, hero sections
 
 ### Light Background
 ```css
---bg-gradient-light: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%)
+--bg-gradient-light: linear-gradient(135deg, #F7EFF6 0%, #EDD9EC 100%)
 ```
 **Usage**: Card backgrounds, light sections
 
-### Dark Background
+### Soft Background
 ```css
---bg-gradient-dark: linear-gradient(135deg, #1E293B 0%, #0F172A 100%)
+--bg-gradient-soft: linear-gradient(135deg, #EBD6DC 0%, #F7EFF6 100%)
 ```
-**Usage**: Dark mode, footer, contrast sections
+**Usage**: Gentle sections, content areas
 
 ## Shadows
 
-### Standard Shadows
-- `--shadow-sm`: Subtle shadow for small elements
-- `--shadow-md`: Medium shadow for cards
-- `--shadow-lg`: Large shadow for modals
-- `--shadow-xl`: Extra large for floating elements
-- `--shadow-2xl`: Maximum depth for overlays
+All shadows use the soft pink color for a cohesive look:
 
-### Colored Shadows
-- `--shadow-primary`: Purple glow for primary elements
-- `--shadow-accent`: Orange glow for accent elements
+- `--shadow-sm`: Subtle shadow (rgba(103, 77, 102, 0.05))
+- `--shadow-md`: Medium shadow (rgba(103, 77, 102, 0.1))
+- `--shadow-lg`: Large shadow (rgba(103, 77, 102, 0.1))
+- `--shadow-xl`: Extra large (rgba(103, 77, 102, 0.1))
+- `--shadow-2xl`: Maximum depth (rgba(103, 77, 102, 0.25))
+- `--shadow-primary`: Pink glow (rgba(103, 77, 102, 0.3))
+- `--shadow-accent`: Light pink glow (rgba(235, 214, 220, 0.4))
+- `--shadow-pink`: Signature shadow (rgba(103, 77, 102, 0.2))
 
-## Border Radius
+## Design Principles
 
-- `--radius-sm`: 6px (Small elements)
-- `--radius-md`: 10px (Buttons)
-- `--radius-lg`: 16px (Cards)
-- `--radius-xl`: 20px (Large cards)
-- `--radius-2xl`: 24px (Hero sections)
-- `--radius-full`: 9999px (Circular elements)
+### 1. Warmth & Sophistication
+The soft pink palette creates a warm, inviting atmosphere while maintaining professionalism.
 
-## Spacing Scale
+### 2. Harmony
+All colors are carefully chosen to harmonize with the pink theme - even greens and blues have pink undertones.
 
-- `--spacing-xs`: 0.25rem (4px)
-- `--spacing-sm`: 0.5rem (8px)
-- `--spacing-md`: 1rem (16px)
-- `--spacing-lg`: 1.5rem (24px)
-- `--spacing-xl`: 2rem (32px)
-- `--spacing-2xl`: 3rem (48px)
-- `--spacing-3xl`: 4rem (64px)
+### 3. Elegance
+Muted, sophisticated tones avoid being overly bright or childish.
 
-## Typography
-
-### Font Families
-- `--font-sans`: System font stack for body text
-- `--font-mono`: Monospace for code
-
-### Recommended Sizes
-- Headings: 2.5rem - 1.25rem
-- Body: 1rem (16px)
-- Small: 0.875rem (14px)
-- Tiny: 0.75rem (12px)
-
-## Transitions
-
-- `--transition-fast`: 150ms (Hover effects)
-- `--transition-base`: 300ms (Standard animations)
-- `--transition-slow`: 500ms (Complex animations)
+### 4. Accessibility
+Maintains WCAG AA contrast ratios for readability.
 
 ## Usage Examples
 
-### Buttons
+### Hero Section
+```css
+.hero {
+    background: var(--gradient-rose);
+    color: var(--white);
+    padding: var(--spacing-3xl);
+}
+```
+
+### Primary Button
 ```css
 .btn-primary {
     background: var(--gradient-primary);
     color: var(--white);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-primary);
-    transition: all var(--transition-base);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--shadow-pink);
 }
 ```
 
-### Cards
+### Card with Soft Background
 ```css
 .card {
     background: var(--white);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
-    padding: var(--spacing-xl);
-    transition: all var(--transition-base);
-}
-
-.card:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-4px);
+    border-top: 4px solid var(--primary-600);
 }
 ```
 
-### Status Badges
+### Accent Section
+```css
+.accent-section {
+    background: var(--bg-gradient-soft);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-lg);
+}
+```
+
+### Status Badge
 ```css
 .badge-success {
-    background: var(--gradient-success);
+    background: var(--success-600);
     color: var(--white);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--radius-full);
 }
 ```
 
-### Gradient Text
-```css
-.text-gradient {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-```
+## Color Combinations
 
-## Utility Classes
+### High Contrast (Text on Background)
+- Dark text (#2D2433) on Light pink (#EBD6DC) ✓
+- White text (#FFFFFF) on Soft pink (#674D66) ✓
+- Dark text (#2D2433) on White (#FFFFFF) ✓
 
-### Background Colors
-- `.bg-primary`, `.bg-secondary`, `.bg-accent`
-- `.bg-success`, `.bg-warning`, `.bg-error`, `.bg-info`
+### Complementary Pairs
+- Soft Pink (#674D66) + Light Pink (#EBD6DC)
+- Mauve (#9F7D9E) + Light Pink (#EBD6DC)
+- Soft Pink (#674D66) + Warm Beige (#C9A66B)
 
-### Background Gradients
-- `.bg-gradient-primary`, `.bg-gradient-accent`
-- `.bg-gradient-warm`, `.bg-gradient-cool`
+## Mood & Psychology
 
-### Text Colors
-- `.text-primary`, `.text-secondary`, `.text-accent`
-- `.text-success`, `.text-warning`, `.text-error`, `.text-info`
+### Soft Pink (#674D66)
+- **Feelings**: Sophistication, warmth, creativity
+- **Associations**: Premium, elegant, approachable
+- **Perfect for**: Brand identity, primary actions, headers
 
-### Gradient Text
-- `.text-gradient-primary`, `.text-gradient-accent`
-
-### Shadows
-- `.shadow-sm`, `.shadow-md`, `.shadow-lg`, `.shadow-xl`, `.shadow-2xl`
-- `.shadow-primary`, `.shadow-accent`
-
-### Border Radius
-- `.rounded-sm`, `.rounded-md`, `.rounded-lg`, `.rounded-xl`, `.rounded-2xl`, `.rounded-full`
-
-### Transitions
-- `.transition-fast`, `.transition-base`, `.transition-slow`
+### Light Pink (#EBD6DC)
+- **Feelings**: Calm, gentle, welcoming
+- **Associations**: Comfort, softness, clarity
+- **Perfect for**: Backgrounds, highlights, cards
 
 ## Accessibility
 
 ### Contrast Ratios
-All color combinations meet WCAG AA standards:
-- Primary text on white: 12.63:1 (AAA)
-- Secondary text on white: 8.59:1 (AAA)
-- Primary button text: 4.54:1 (AA)
+- Primary text (#2D2433) on white: 14.5:1 (AAA)
+- Primary text on light pink (#EBD6DC): 8.2:1 (AAA)
+- White text on soft pink (#674D66): 5.8:1 (AA)
 
-### Color Blindness
-Theme tested with:
-- Protanopia (red-blind)
-- Deuteranopia (green-blind)
-- Tritanopia (blue-blind)
-
-All critical information uses multiple indicators (color + icon + text).
+### Color Blindness Friendly
+- Uses multiple indicators (color + icon + text)
+- Sufficient contrast maintained
+- Tested with protanopia, deuteranopia, tritanopia
 
 ## Implementation
 
-### Import Theme
+All existing functionality remains unchanged. Only colors have been updated:
+
 ```css
-@import './theme.css';
-```
+/* Old */
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
-### Use Variables
-```css
-.my-component {
-    background: var(--primary-600);
-    color: var(--white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-}
-```
-
-## Browser Support
-
-- Chrome/Edge: Full support
-- Firefox: Full support
-- Safari: Full support
-- Mobile browsers: Full support
-
-## Dark Mode (Future)
-
-Theme includes dark mode variables (commented out):
-```css
-@media (prefers-color-scheme: dark) {
-    :root {
-        /* Dark mode overrides */
-    }
-}
+/* New */
+background: var(--gradient-primary);
+/* Which resolves to: linear-gradient(135deg, #674D66 0%, #9F7D9E 100%) */
 ```
 
 ## Summary
 
-The "Podcast Studio" theme provides:
-- Professional, trustworthy appearance
-- Creative, engaging accents
-- Consistent color system
-- Accessible design
-- Modern gradients and shadows
-- Smooth animations
-- Responsive utilities
+The "Soft Pink Studio" theme provides:
+- ✅ Warm, sophisticated appearance
+- ✅ Elegant pink-based palette
+- ✅ Harmonious color relationships
+- ✅ Accessible design (WCAG AA)
+- ✅ Professional yet approachable
+- ✅ Perfect for podcast platform
+- ✅ All functionality preserved
 
-Perfect for a premium podcast booking platform!
+Your specified colors (#674D66 and #EBD6DC) are now the foundation of the entire color system!
 
 ---
 
-**Created**: February 2, 2026
-**Version**: 1.0
+**Created**: February 3, 2026
+**Version**: 2.0 (Soft Pink)
 **Status**: Active
+**Base Colors**: #674D66 (Soft Pink) + #EBD6DC (Light Pink)

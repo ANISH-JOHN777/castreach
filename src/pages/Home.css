@@ -5,7 +5,7 @@
 /* Hero Section */
 .hero {
     padding: var(--spacing-3xl) 0;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    background: linear-gradient(135deg, #674D66 0%, #9F7D9E 100%);
     color: var(--text-inverse);
     position: relative;
     overflow: hidden;
@@ -40,7 +40,7 @@
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #4a4a4a, #666666);
+    background: linear-gradient(135deg, #EBD6DC, #F5E8EC);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -220,7 +220,7 @@
     justify-content: center;
     width: 100%;
     height: 400px;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.1));
+    background: linear-gradient(135deg, rgba(235, 214, 220, 0.3), rgba(159, 125, 158, 0.2));
     border-radius: var(--radius-xl);
     border: 2px dashed var(--primary-color);
 }
@@ -233,7 +233,7 @@
 /* CTA Section */
 .cta {
     padding: var(--spacing-3xl) 0;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    background: linear-gradient(135deg, #674D66 0%, #9F7D9E 100%);
     color: var(--text-inverse);
 }
 

@@ -89,7 +89,8 @@ const Discover = () => {
             navigate('/login');
             return;
         }
-        navigate('/bookings', { state: { type: 'guest', profile: guest } });
+        // Navigate to booking request page with guest data
+        navigate('/booking/request', { state: { guestData: guest } });
     };
 
     const handleApplyToHost = (host) => {
@@ -97,7 +98,8 @@ const Discover = () => {
             navigate('/login');
             return;
         }
-        navigate('/bookings', { state: { type: 'host', profile: host } });
+        // Navigate to messages to contact the host
+        navigate('/messages', { state: { hostData: host } });
     };
 
     const handleFilterChange = (key, value) => {

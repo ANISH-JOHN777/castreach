@@ -1,29 +1,29 @@
 :root {
-  /* Modern Vibrant Color Palette */
-  --primary-color: #6366f1;
-  --primary-dark: #4f46e5;
-  --primary-light: #818cf8;
-  --secondary-color: #8b5cf6;
-  --accent-color: #ec4899;
+  /* Soft Pink Color Palette - #674D66 & #EBD6DC */
+  --primary-color: #674D66;
+  --primary-dark: #5A4159;
+  --primary-light: #7D5F7C;
+  --secondary-color: #9F7D9E;
+  --accent-color: #EBD6DC;
 
-  --success-color: #10b981;
-  --warning-color: #f59e0b;
-  --error-color: #ef4444;
-  --info-color: #3b82f6;
+  --success-color: #7C9885;
+  --warning-color: #C9A66B;
+  --error-color: #B87B7B;
+  --info-color: #7B8FB8;
 
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
-  --text-tertiary: #9ca3af;
+  --text-primary: #2D2433;
+  --text-secondary: #5D4B60;
+  --text-tertiary: #9D879E;
   --text-inverse: #ffffff;
 
   --bg-primary: #ffffff;
-  --bg-secondary: #f9fafb;
-  --bg-tertiary: #f3f4f6;
-  --bg-dark: #111827;
+  --bg-secondary: #F7EFF6;
+  --bg-tertiary: #EDD9EC;
+  --bg-dark: #2D2433;
 
-  --border-color: #e0e0e0;
-  --border-light: #f0f0f0;
-  --border-dark: #cccccc;
+  --border-color: #DDC3DC;
+  --border-light: #EDD9EC;
+  --border-dark: #BDA5BD;
 
   /* Spacing System */
   --spacing-xs: 0.25rem;
@@ -61,11 +61,11 @@
   --radius-xl: 1rem;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  /* Shadows - Pink tinted */
+  --shadow-sm: 0 1px 2px 0 rgba(103, 77, 102, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(103, 77, 102, 0.1), 0 2px 4px -1px rgba(103, 77, 102, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(103, 77, 102, 0.1), 0 4px 6px -2px rgba(103, 77, 102, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(103, 77, 102, 0.1), 0 10px 10px -5px rgba(103, 77, 102, 0.04);
 
   /* Transitions */
   --transition-fast: 150ms ease-in-out;

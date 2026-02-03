@@ -1,88 +1,92 @@
 /* ============================================
-   CASTREACH COLOR THEME - Podcast Studio
+   CASTREACH COLOR THEME - Soft Pink Studio
    ============================================ */
 
 :root {
-    /* Primary Colors */
-    --primary-600: #4F46E5;
-    --primary-700: #4338CA;
-    --primary-500: #6366F1;
-    --primary-400: #818CF8;
-    --primary-300: #A5B4FC;
+    /* Primary Colors - Soft Pink Palette */
+    --primary-700: #5A4159;
+    --primary-600: #674D66;
+    --primary-500: #7D5F7C;
+    --primary-400: #937192;
+    --primary-300: #A983A8;
 
-    /* Secondary Colors */
-    --secondary-600: #7C3AED;
-    --secondary-700: #6D28D9;
-    --secondary-500: #8B5CF6;
-    --secondary-400: #A78BFA;
-    --secondary-300: #C4B5FD;
+    /* Secondary Colors - Mauve/Rose */
+    --secondary-700: #8B6B8A;
+    --secondary-600: #9F7D9E;
+    --secondary-500: #B38FB2;
+    --secondary-400: #C7A1C6;
+    --secondary-300: #DBB3DA;
 
-    /* Accent Colors */
-    --accent-600: #F97316;
-    --accent-700: #EA580C;
-    --accent-500: #FB923C;
-    --accent-400: #FDBA74;
-    --accent-300: #FED7AA;
+    /* Accent Colors - Light Pink */
+    --accent-700: #D4BEC9;
+    --accent-600: #EBD6DC;
+    --accent-500: #F0DFE4;
+    --accent-400: #F5E8EC;
+    --accent-300: #FAF1F4;
 
     /* Semantic Colors */
-    --success-600: #10B981;
-    --success-700: #059669;
-    --success-500: #34D399;
-    --success-400: #6EE7B7;
-    --success-300: #A7F3D0;
+    --success-600: #7C9885;
+    --success-700: #6A8573;
+    --success-500: #8EAA97;
+    --success-400: #A0BCA9;
+    --success-300: #B2CEBB;
 
-    --warning-600: #F59E0B;
-    --warning-700: #D97706;
-    --warning-500: #FBBF24;
-    --warning-400: #FCD34D;
-    --warning-300: #FDE68A;
+    --warning-600: #C9A66B;
+    --warning-700: #B7945F;
+    --warning-500: #D4B47D;
+    --warning-400: #DFC28F;
+    --warning-300: #EAD0A1;
 
-    --error-600: #EF4444;
-    --error-700: #DC2626;
-    --error-500: #F87171;
-    --error-400: #FCA5A5;
-    --error-300: #FECACA;
+    --error-600: #B87B7B;
+    --error-700: #A66969;
+    --error-500: #C48D8D;
+    --error-400: #D09F9F;
+    --error-300: #DCB1B1;
 
-    --info-600: #3B82F6;
-    --info-700: #2563EB;
-    --info-500: #60A5FA;
-    --info-400: #93C5FD;
-    --info-300: #BFDBFE;
+    --info-600: #7B8FB8;
+    --info-700: #697DA6;
+    --info-500: #8DA1C4;
+    --info-400: #9FB3D0;
+    --info-300: #B1C5DC;
 
     /* Neutral Colors */
-    --neutral-900: #0F172A;
-    --neutral-800: #1E293B;
-    --neutral-700: #334155;
-    --neutral-600: #475569;
-    --neutral-500: #64748B;
-    --neutral-400: #94A3B8;
-    --neutral-300: #CBD5E1;
-    --neutral-200: #E2E8F0;
-    --neutral-100: #F1F5F9;
-    --neutral-50: #F8FAFC;
+    --neutral-900: #2D2433;
+    --neutral-800: #3D3142;
+    --neutral-700: #4D3E51;
+    --neutral-600: #5D4B60;
+    --neutral-500: #7D697F;
+    --neutral-400: #9D879E;
+    --neutral-300: #BDA5BD;
+    --neutral-200: #DDC3DC;
+    --neutral-100: #EDD9EC;
+    --neutral-50: #F7EFF6;
     --white: #FFFFFF;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
-    --gradient-accent: linear-gradient(135deg, var(--accent-600) 0%, var(--accent-700) 100%);
-    --gradient-success: linear-gradient(135deg, var(--success-600) 0%, var(--success-700) 100%);
-    --gradient-info: linear-gradient(135deg, var(--info-600) 0%, var(--info-700) 100%);
-    --gradient-warm: linear-gradient(135deg, var(--accent-500) 0%, var(--primary-600) 100%);
-    --gradient-cool: linear-gradient(135deg, var(--info-600) 0%, var(--primary-600) 100%);
+    --gradient-primary: linear-gradient(135deg, #674D66 0%, #9F7D9E 100%);
+    --gradient-accent: linear-gradient(135deg, #EBD6DC 0%, #F5E8EC 100%);
+    --gradient-success: linear-gradient(135deg, #7C9885 0%, #6A8573 100%);
+    --gradient-info: linear-gradient(135deg, #7B8FB8 0%, #697DA6 100%);
+    --gradient-warm: linear-gradient(135deg, #C9A66B 0%, #674D66 100%);
+    --gradient-cool: linear-gradient(135deg, #7B8FB8 0%, #674D66 100%);
+    --gradient-rose: linear-gradient(135deg, #674D66 0%, #EBD6DC 100%);
+    --gradient-soft: linear-gradient(135deg, #9F7D9E 0%, #EBD6DC 100%);
 
     /* Background Gradients */
-    --bg-gradient-primary: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
-    --bg-gradient-light: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
-    --bg-gradient-dark: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+    --bg-gradient-primary: linear-gradient(135deg, #674D66 0%, #9F7D9E 100%);
+    --bg-gradient-light: linear-gradient(135deg, #F7EFF6 0%, #EDD9EC 100%);
+    --bg-gradient-dark: linear-gradient(135deg, #3D3142 0%, #2D2433 100%);
+    --bg-gradient-soft: linear-gradient(135deg, #EBD6DC 0%, #F7EFF6 100%);
 
     /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    --shadow-primary: 0 10px 30px rgba(79, 70, 229, 0.3);
-    --shadow-accent: 0 10px 30px rgba(249, 115, 22, 0.3);
+    --shadow-sm: 0 1px 2px 0 rgba(103, 77, 102, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(103, 77, 102, 0.1), 0 2px 4px -1px rgba(103, 77, 102, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(103, 77, 102, 0.1), 0 4px 6px -2px rgba(103, 77, 102, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(103, 77, 102, 0.1), 0 10px 10px -5px rgba(103, 77, 102, 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgba(103, 77, 102, 0.25);
+    --shadow-primary: 0 10px 30px rgba(103, 77, 102, 0.3);
+    --shadow-accent: 0 10px 30px rgba(235, 214, 220, 0.4);
+    --shadow-pink: 0 8px 24px rgba(103, 77, 102, 0.2);
 
     /* Border Radius */
     --radius-sm: 6px;
@@ -189,6 +193,14 @@ body {
     background: var(--gradient-cool);
 }
 
+.bg-gradient-rose {
+    background: var(--gradient-rose);
+}
+
+.bg-gradient-soft {
+    background: var(--gradient-soft);
+}
+
 /* Text Colors */
 .text-primary {
     color: var(--primary-600);
@@ -233,6 +245,13 @@ body {
     background-clip: text;
 }
 
+.text-gradient-rose {
+    background: var(--gradient-rose);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 /* Shadows */
 .shadow-sm {
     box-shadow: var(--shadow-sm);
@@ -260,6 +279,10 @@ body {
 
 .shadow-accent {
     box-shadow: var(--shadow-accent);
+}
+
+.shadow-pink {
+    box-shadow: var(--shadow-pink);
 }
 
 /* Border Radius */
@@ -334,7 +357,7 @@ textarea:focus,
 select:focus {
     outline: none;
     border-color: var(--primary-600);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    box-shadow: 0 0 0 3px rgba(103, 77, 102, 0.1);
 }
 
 /* Cards */
@@ -364,19 +387,19 @@ select:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--neutral-400);
+    background: var(--primary-400);
     border-radius: var(--radius-full);
     border: 3px solid var(--neutral-100);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--neutral-500);
+    background: var(--primary-500);
 }
 
 /* Firefox */
 * {
     scrollbar-width: thin;
-    scrollbar-color: var(--neutral-400) var(--neutral-100);
+    scrollbar-color: var(--primary-400) var(--neutral-100);
 }
 
 /* ============================================
@@ -384,12 +407,12 @@ select:focus {
    ============================================ */
 
 ::selection {
-    background: var(--primary-300);
+    background: var(--accent-600);
     color: var(--neutral-900);
 }
 
 ::-moz-selection {
-    background: var(--primary-300);
+    background: var(--accent-600);
     color: var(--neutral-900);
 }
 
@@ -414,10 +437,10 @@ select:focus {
         /* Override colors for dark mode if needed */
         /* Uncomment and customize as needed */
         /*
-        --neutral-900: #F8FAFC;
-        --neutral-800: #F1F5F9;
-        --neutral-50: #0F172A;
-        --white: #1E293B;
+        --neutral-900: #F7EFF6;
+        --neutral-800: #EDD9EC;
+        --neutral-50: #2D2433;
+        --white: #3D3142;
         */
     }
 }

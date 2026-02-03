@@ -102,13 +102,13 @@ const Home = () => {
                         </div>
                         <div className="hero-image">
                             <img
-                                src="/hero-banner.png"
+                                src="/images/hero-banner.png"
                                 alt="Professional podcast studio setup"
                                 style={{
                                     width: '100%',
                                     height: 'auto',
                                     borderRadius: '16px',
-                                    boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+                                    boxShadow: '0 20px 60px rgba(103, 77, 102, 0.3)'
                                 }}
                             />
                         </div>
@@ -157,9 +157,15 @@ const Home = () => {
                             </ul>
                         </div>
                         <div className="benefits-visual">
-                            <div className="benefits-illustration">
-                                <TrendingUp size={100} className="pulse-icon" />
-                            </div>
+                            <img
+                                src="/images/collaboration.png"
+                                alt="Podcast collaboration network"
+                                style={{
+                                    width: '100%',
+                                    height: 'auto',
+                                    borderRadius: '16px'
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
