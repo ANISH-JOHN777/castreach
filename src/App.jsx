@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
+import { DarkModeProvider } from './context/DarkModeContext';
+import { FavoritesProvider } from './context/FavoritesContext';
+import { NotificationsProvider } from './context/NotificationsContext';
 import AppLayout from './layouts/AppLayout';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -19,6 +22,8 @@ import PodcastRoom from './pages/PodcastRoom';
 import Messages from './pages/Messages';
 import Personalization from './pages/Personalization';
 import About from './pages/About';
+import Analytics from './pages/Analytics';
+import CalendarView from './pages/CalendarView';
 
 import './styles/global.css';
 
@@ -148,6 +153,22 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/analytics"
+          element={
+            <ProtectedRoute>
+              <Analytics />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/calendar"
+          element={
+            <ProtectedRoute>
+              <CalendarView />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Catch all */}
         <Route path="*" element={<Navigate to="/" replace />} />
@@ -160,11 +181,17 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <ToastProvider>
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
-      </ToastProvider>
+      <DarkModeProvider>
+        <ToastProvider>
+          <AuthProvider>
+            <FavoritesProvider>
+              <NotificationsProvider>
+                <AppRoutes />
+              </NotificationsProvider>
+            </FavoritesProvider>
+          </AuthProvider>
+        </ToastProvider>
+      </DarkModeProvider>
     </BrowserRouter>
   );
 }
